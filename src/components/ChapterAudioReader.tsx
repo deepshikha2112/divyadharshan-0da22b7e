@@ -38,7 +38,8 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
       stop();
       narration.stopNarration();
     };
-  }, [stop, narration]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Stop narration when chapter changes
   useEffect(() => {
@@ -46,7 +47,8 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
       narration.stopNarration();
       setListeningChapter(null);
     }
-  }, [expandedChapter, listeningChapter, narration]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expandedChapter, listeningChapter]);
 
   const toggleExpand = (chapterId: string) => {
     setExpandedChapter(expandedChapter === chapterId ? null : chapterId);
