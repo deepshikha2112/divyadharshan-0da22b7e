@@ -18,11 +18,13 @@ export const useElevenLabsTTS = () => {
   const currentIndexRef = useRef(0);
   const optionsRef = useRef<TTSOptions>({});
   const isStoppedRef = useRef(false);
+  const isPlayingRef = useRef(false);
 
   const generateAndPlayParagraph = useCallback(async (index: number) => {
     if (isStoppedRef.current || index >= paragraphsRef.current.length) {
       setIsPlaying(false);
       setIsLoading(false);
+      isPlayingRef.current = false;
       return;
     }
 
@@ -56,6 +58,12 @@ export const useElevenLabsTTS = () => {
         }
       );
 
+      // Check if stopped during fetch
+      if (isStoppedRef.current) {
+        setIsLoading(false);
+        return;
+      }
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.error || `TTS request failed: ${response.status}`);
@@ -64,10 +72,23 @@ export const useElevenLabsTTS = () => {
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
       
-      // Clean up previous audio
+      // Check if stopped during blob processing
+      if (isStoppedRef.current) {
+        URL.revokeObjectURL(audioUrl);
+        setIsLoading(false);
+        return;
+      }
+
+      // Clean up previous audio safely
       if (audioRef.current) {
-        audioRef.current.pause();
-        URL.revokeObjectURL(audioRef.current.src);
+        const oldAudio = audioRef.current;
+        const oldSrc = oldAudio.src;
+        oldAudio.onended = null;
+        oldAudio.onerror = null;
+        oldAudio.pause();
+        audioRef.current = null;
+        // Delay URL cleanup to prevent race conditions
+        setTimeout(() => URL.revokeObjectURL(oldSrc), 100);
       }
 
       const audio = new Audio(audioUrl);
@@ -80,26 +101,53 @@ export const useElevenLabsTTS = () => {
         }
       };
 
-      audio.onerror = () => {
+      audio.onerror = (e) => {
+        console.error('Audio playback error:', e);
         setError('Audio playback failed');
         setIsPlaying(false);
         setIsLoading(false);
+        isPlayingRef.current = false;
       };
 
       setIsLoading(false);
       setIsPlaying(true);
-      await audio.play();
+      isPlayingRef.current = true;
+      
+      // Handle play with proper error catching for AbortError
+      try {
+        await audio.play();
+      } catch (playError) {
+        // Ignore AbortError as it's expected when stopping
+        if (playError instanceof Error && playError.name === 'AbortError') {
+          console.log('Playback aborted (expected when stopping)');
+          return;
+        }
+        throw playError;
+      }
       
       optionsRef.current.onProgress?.(index, paragraphsRef.current.length);
     } catch (err) {
-      console.error('TTS error:', err);
-      setError(err instanceof Error ? err.message : 'TTS generation failed');
+      // Only log non-abort errors
+      if (!(err instanceof Error && err.name === 'AbortError')) {
+        console.error('TTS error:', err);
+        setError(err instanceof Error ? err.message : 'TTS generation failed');
+      }
       setIsLoading(false);
       setIsPlaying(false);
+      isPlayingRef.current = false;
     }
   }, []);
 
   const startNarration = useCallback(async (text: string, options?: TTSOptions) => {
+    // Stop any existing narration first
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.onended = null;
+      audioRef.current.onerror = null;
+      URL.revokeObjectURL(audioRef.current.src);
+      audioRef.current = null;
+    }
+    
     // Reset state
     isStoppedRef.current = false;
     setError(null);
@@ -116,7 +164,7 @@ export const useElevenLabsTTS = () => {
   }, [generateAndPlayParagraph]);
 
   const pauseNarration = useCallback(() => {
-    if (audioRef.current && !isPaused) {
+    if (audioRef.current && isPlayingRef.current && !isPaused) {
       audioRef.current.pause();
       setIsPaused(true);
     }
@@ -124,14 +172,17 @@ export const useElevenLabsTTS = () => {
 
   const resumeNarration = useCallback(() => {
     if (audioRef.current && isPaused) {
-      audioRef.current.play();
+      audioRef.current.play().catch(console.error);
       setIsPaused(false);
     }
   }, [isPaused]);
 
   const stopNarration = useCallback(() => {
     isStoppedRef.current = true;
+    isPlayingRef.current = false;
     if (audioRef.current) {
+      audioRef.current.onended = null;
+      audioRef.current.onerror = null;
       audioRef.current.pause();
       URL.revokeObjectURL(audioRef.current.src);
       audioRef.current = null;
