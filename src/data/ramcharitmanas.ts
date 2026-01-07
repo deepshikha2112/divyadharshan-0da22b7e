@@ -117,7 +117,7 @@ Manu and Śatarūpā, the first humans, performed austerities for sixty thousand
 
 Thus, the Lord resolved to descend on earth to protect the righteous, destroy the wicked, and establish dharma. His mission was set in motion by divine will and the prayers of saints, sages and gods.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "bal-5",
@@ -140,7 +140,7 @@ Overwhelmed with love and devotion, Kausalyā prayed: "O Lord of the Universe, Y
 
 The Lord smiled and assumed the form of a beautiful baby with dark complexion and lotus eyes. Joy spread throughout Ayodhyā. King Daśaratha distributed wealth to Brāhmaṇas and the poor. Śrī Rāma, Bharata, Lakṣmaṇa and Śatrughna—the four divine brothers—illumined the royal palace.`,
         mood: "divine",
-        instrument: "sitar"
+        instrument: "flute"
       },
       {
         id: "bal-6",
@@ -182,7 +182,7 @@ They arrived at the āśrama. The demoness Tāṭakā attacked them, but Rāma s
 
 The sacrifice was completed successfully. Viśvāmitra blessed Rāma and Lakṣmaṇa with divine weapons and knowledge of all celestial arms. He then said: "Now let us proceed to Mithilā, where King Janaka is holding a great bow-ceremony."`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "bal-8",
@@ -205,7 +205,7 @@ The wedding was celebrated with unparalleled splendor. Bharata, Lakṣmaṇa and
 
 Ayodhyā was decorated like heaven itself. King Daśaratha's joy knew no bounds. The people celebrated for days. Thus ended the Bāla Kāṇḍa—the book of Śrī Rāma's childhood.`,
         mood: "happy",
-        instrument: "sitar"
+        instrument: "flute"
       }
     ]
   },
@@ -321,7 +321,7 @@ With the entire city following him, Bharata set out for the forest. His determin
 
 The journey was long, but Bharata's love drove him forward. Finally, he reached the hermitage of Citrakūṭa, where Rāma, Sītā and Lakṣmaṇa had made their home.`,
         mood: "emotional",
-        instrument: "sitar"
+        instrument: "flute"
       },
       {
         id: "ayo-6",
@@ -403,7 +403,7 @@ Khara and his demon horde attacked Pañcavaṭī. Rāma told Lakṣmaṇa to pro
 
 Śūrpaṇakhā, witnessing this destruction, fled to Laṅkā to report to Rāvaṇa himself.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "ara-3",
@@ -535,7 +535,7 @@ Vālī accepted Rāma's justice. With his dying breath, he blessed Sugrīva and 
 
 The monsoon arrived, preventing immediate search for Sītā. Rāma spent these months in a cave, his heart burning with separation from Sītā.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "kish-3",
@@ -562,7 +562,7 @@ As Jāmbavān recounted Hanumān's divine origin and powers, the monkey warrior 
 
 "I will cross this ocean. I will find Mother Sītā. Victory to Śrī Rāma!"`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "kish-4",
@@ -587,7 +587,7 @@ As the sun set, Hanumān saw the golden towers of Laṅkā gleaming on the horiz
 
 Thus ended the Kiṣkindhā Kāṇḍa. Hanumān had reached Laṅkā. The stage was set for his meeting with Sītā.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       }
     ]
   },
@@ -669,7 +669,7 @@ Rāvaṇa was amused by this monkey's audacity. But when his brother Vibhīṣa�
 
 "A monkey's greatest treasure is his tail. Set it on fire! Let him return to his master in humiliation!"`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "sun-4",
@@ -692,7 +692,7 @@ Sītā smiled gently: "Dear Hanumān, that would not be proper. Rāma must come 
 
 Hanumān bowed to her wisdom. Then, with one great leap, he launched himself back across the ocean, carrying with him the greatest news in the world: Sītā was found.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "sun-5",
@@ -719,7 +719,7 @@ Now Rāma knew where Sītā was. Now He knew Rāvaṇa's strength. Now was the t
 
 Thus ended the Sundara Kāṇḍa—the beautiful book of Hanumān's glory, the prelude to the great war of righteousness.`,
         mood: "happy",
-        instrument: "sitar"
+        instrument: "flute"
       }
     ]
   },
@@ -751,7 +751,7 @@ In five days, a miraculous bridge spanning one hundred yojanas was complete. It 
 
 The monkey army crossed the ocean and camped on Laṅkā's shore. Rāvaṇa, watching from his palace, felt the first stirrings of fear.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "lan-2",
@@ -776,7 +776,7 @@ The final embassy was sent: Aṅgada, the monkey prince, went to Rāvaṇa's cou
 
 The war would begin at dawn.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "lan-3",
@@ -799,7 +799,7 @@ Rāvaṇa wept for his brother, then raged for revenge. He sent his sons, his ge
 
 Now only Indrajit, the invincible, remained. And Rāvaṇa himself.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "lan-4",
@@ -824,7 +824,7 @@ Finally, as dawn broke, Lakṣmaṇa invoked the divine Aindra weapon and severe
 
 With his son dead, Rāvaṇa's heart turned to stone. Now he would fight—and die—himself.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "lan-5",
@@ -851,7 +851,7 @@ Rāvaṇa, the terror of the three worlds, fell.
 
 At that moment, flowers rained from heaven. The gods cheered. The earth sighed in relief. Dharma had triumphed over adharma.`,
         mood: "powerful",
-        instrument: "drums"
+        instrument: "mantra-rhythm"
       },
       {
         id: "lan-6",
@@ -878,7 +878,7 @@ The fourteen years were complete. It was time to return home. Puṣpaka, Rāva�
 
 Thus ended the Laṅkā Kāṇḍa—the book of war, victory, and divine reunion.`,
         mood: "happy",
-        instrument: "sitar"
+        instrument: "flute"
       }
     ]
   },
@@ -910,7 +910,7 @@ Mother Kausalyā, aged with grief, saw her son at last. She held Him and wept. R
 
 Sumaṅtra, the aged charioteer, sobbed: "My lord, I drove you away in tears. Today I receive you in joy. Blessed is this day!"`,
         mood: "happy",
-        instrument: "sitar"
+        instrument: "flute"
       },
       {
         id: "utt-2",
@@ -935,7 +935,7 @@ Sugrīva, Vibhīṣaṇa, Aṅgada, Jāmbavān—all the heroes were rewarded wi
 
 The gods returned to heaven, blessing the earth that had witnessed such dharma.`,
         mood: "divine",
-        instrument: "sitar"
+        instrument: "flute"
       },
       {
         id: "utt-3",
