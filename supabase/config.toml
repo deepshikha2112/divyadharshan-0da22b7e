@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.divine-guidance]
 verify_jwt = false
+
+[functions.kundali-matching]
+verify_jwt = false
