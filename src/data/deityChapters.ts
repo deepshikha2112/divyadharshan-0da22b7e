@@ -2,6 +2,7 @@ import { Chapter } from '@/components/ChapterAudioReader';
 import { shivPuranChapters, ShivPuranChapter } from './shivPuranChapters';
 import { lakshmiPuranChapters, LakshmiPuranChapter } from './lakshmiPuranChapters';
 import { deviSaptashatiChapters, DeviSaptashatiChapter } from './deviSaptashatiChapters';
+import { vishnuChaptersHindi } from './vishnuChaptersHindi';
 
 export interface DeityChapters {
   deityId: string;
