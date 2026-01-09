@@ -3,6 +3,7 @@ import { shivPuranChapters, ShivPuranChapter } from './shivPuranChapters';
 import { lakshmiPuranChapters, LakshmiPuranChapter } from './lakshmiPuranChapters';
 import { deviSaptashatiChapters, DeviSaptashatiChapter } from './deviSaptashatiChapters';
 import { vishnuChaptersHindi } from './vishnuChaptersHindi';
+import { bhagavadGitaChaptersHindi } from './bhagavadGitaChaptersHindi';
 
 export interface DeityChapters {
   deityId: string;
@@ -37,6 +38,28 @@ const convertDeviSaptashatiChapters = (): Chapter[] => {
     id: chapter.id,
     title: chapter.titleHindi || chapter.titleEnglish,
     subtitle: chapter.titleEnglish,
+    mood: chapter.mood,
+    instrument: chapter.instrument,
+    content: chapter.content,
+  }));
+};
+
+const convertVishnuChaptersHindi = (): Chapter[] => {
+  return vishnuChaptersHindi.map((chapter, index) => ({
+    id: chapter.id,
+    title: chapter.title,
+    subtitle: chapter.subtitle || `अध्याय ${index + 1}`,
+    mood: chapter.mood,
+    instrument: chapter.instrument,
+    content: chapter.content,
+  }));
+};
+
+const convertBhagavadGitaChaptersHindi = (): Chapter[] => {
+  return bhagavadGitaChaptersHindi.map((chapter) => ({
+    id: chapter.id,
+    title: chapter.title,
+    subtitle: chapter.subtitle,
     mood: chapter.mood,
     instrument: chapter.instrument,
     content: chapter.content,
@@ -111,54 +134,12 @@ To this day, millions begin their prayers, journeys, and new ventures by invokin
   },
   {
     deityId: "vishnu",
-    chapters: [
-      {
-        id: "v1",
-        title: "The Preserver of the Universe",
-        subtitle: "Lord Vishnu's eternal role",
-        mood: "divine",
-        instrument: "om",
-        content: `Lord Vishnu, the Preserver, maintains the cosmic order. He rests on the infinite serpent Ananta Shesha in the cosmic ocean of milk, dreaming the universe into existence. From his navel grows a lotus, upon which sits Brahma, the creator.
-
-With four arms, Vishnu holds the conch (Shankha) representing the primordial sound Om, the discus (Sudarshana Chakra) symbolizing the mind and the cycle of time, the mace (Gada) representing strength and knowledge, and the lotus (Padma) signifying purity and liberation.
-
-His consort is Lakshmi, the goddess of prosperity. His vehicle is Garuda, the divine eagle. Together, they watch over all creation with infinite compassion.
-
-Whenever dharma (righteousness) declines and adharma (unrighteousness) rises, Vishnu descends to Earth in various forms called Avatars. His love for his devotees knows no bounds.`
-      },
-      {
-        id: "v2",
-        title: "The Avatars of Vishnu",
-        subtitle: "Divine incarnations through the ages",
-        mood: "powerful",
-        instrument: "tanpura",
-        content: `Lord Vishnu has descended to Earth in ten major incarnations, the Dashavatar. Each avatar came to restore balance when evil threatened to overwhelm the world.
-
-As Matsya (the Fish), he saved the Vedas from the great flood. As Kurma (the Tortoise), he supported Mount Mandara during the churning of the ocean. As Varaha (the Boar), he lifted the Earth from cosmic waters.
-
-As Narasimha (the Man-Lion), he protected his devotee Prahlada from the demon king. As Vamana (the Dwarf), he reclaimed the universe from King Bali. As Parashurama, he rid the world of corrupt warriors.
-
-As Rama, he showed the world the path of dharma. As Krishna, he delivered the Bhagavad Gita. As Buddha, he taught compassion. The tenth avatar, Kalki, is yet to come, appearing at the end of Kali Yuga to begin a new cycle.`
-      },
-      {
-        id: "v3",
-        title: "The Cosmic Sleep",
-        subtitle: "Vishnu in Yoga Nidra",
-        mood: "peaceful",
-        instrument: "flute",
-        content: `Between cycles of creation, Lord Vishnu rests in Yoga Nidra - the yogic sleep of cosmic consciousness. Floating on the cosmic waters upon Shesha, the thousand-headed serpent, he enters a state of divine rest.
-
-Yet even in this rest, Vishnu is aware. His consciousness pervades all existence. The entire universe exists within him, like waves in an infinite ocean. Lakshmi gently massages his feet as he dreams.
-
-When the time for creation comes, from his deep contemplation, a golden lotus emerges from his navel. On this lotus sits Brahma, who then begins the work of creation according to Vishnu's divine will.
-
-This imagery teaches us that behind all activity is profound stillness. The universe emerges from and dissolves back into this peaceful awareness. Vishnu's sleep is not unconsciousness but supreme consciousness - aware of all while attached to nothing.`
-      }
-    ]
+    chapters: convertVishnuChaptersHindi()
   },
   {
     deityId: "krishna",
     chapters: [
+      ...convertBhagavadGitaChaptersHindi(),
       {
         id: "k1",
         title: "The Divine Child of Vrindavan",
