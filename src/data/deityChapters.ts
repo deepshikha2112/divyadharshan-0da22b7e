@@ -5,7 +5,7 @@ import { deviSaptashatiChapters, DeviSaptashatiChapter } from './deviSaptashatiC
 import { vishnuChaptersHindi } from './vishnuChaptersHindi';
 import { bhagavadGitaChaptersHindi } from './bhagavadGitaChaptersHindi';
 import { saiBabaChaptersHindi } from './saiBabaChaptersHindi';
-
+import { hanumanChaptersHindi } from './hanumanChaptersHindi';
 export interface DeityChapters {
   deityId: string;
   chapters: Chapter[];
@@ -72,6 +72,17 @@ const convertSaiBabaChaptersHindi = (): Chapter[] => {
     id: chapter.id,
     title: chapter.title,
     subtitle: chapter.subtitle,
+    mood: chapter.mood,
+    instrument: chapter.instrument,
+    content: chapter.content,
+  }));
+};
+
+const convertHanumanChaptersHindi = (): Chapter[] => {
+  return hanumanChaptersHindi.map((chapter) => ({
+    id: chapter.id,
+    title: chapter.title,
+    subtitle: `हनुमान कथा - अध्याय ${chapter.id}`,
     mood: chapter.mood,
     instrument: chapter.instrument,
     content: chapter.content,
@@ -212,64 +223,7 @@ This is the essence of Krishna consciousness - that the Lord is accessible to al
   },
   {
     deityId: "hanuman",
-    chapters: [
-      {
-        id: "h1",
-        title: "The Son of the Wind",
-        subtitle: "Hanuman's divine birth and childhood",
-        mood: "divine",
-        instrument: "om",
-        content: `Hanuman was born to Anjana and Kesari, blessed by the Wind God Vayu. As a child, he possessed extraordinary powers, and in his innocence, he once mistook the rising sun for a ripe fruit.
-
-Leaping into the sky, young Hanuman flew towards the sun. Indra, the king of gods, struck him with his thunderbolt, causing him to fall. Vayu, angered by the attack on his son, withdrew all air from the universe.
-
-To appease Vayu and save creation, the gods blessed Hanuman with numerous gifts - immortality, invincibility, and powers beyond measure. But they also placed a condition: Hanuman would forget his powers until reminded at the right time.
-
-Thus grew the mighty Hanuman, humble and devoted, unaware of the cosmic strength that lay dormant within him, waiting to be awakened in service of Lord Rama.`
-      },
-      {
-        id: "h2",
-        title: "Finding Lord Rama",
-        subtitle: "The meeting that changed everything",
-        mood: "emotional",
-        instrument: "flute",
-        content: `When Rama and Lakshmana wandered through the forests searching for Sita, they came upon Rishyamuka Mountain where Sugriva and his ministers lived in exile.
-
-Sugriva, fearing they might be sent by his enemy Vali, asked Hanuman to approach them in disguise. Hanuman took the form of a Brahmin scholar and approached the princes.
-
-The moment Hanuman saw Rama, something stirred deep within his heart. Here was the purpose of his existence, the master he was born to serve. When Rama spoke, Hanuman was enchanted by the sweetness and wisdom of his words.
-
-Revealing his true form, Hanuman bowed at Rama's feet and offered his eternal service. From that moment, he lived only for Rama - thinking of Rama, speaking of Rama, working only for Rama's mission. This complete surrender became the foundation of his legendary devotion.`
-      },
-      {
-        id: "h3",
-        title: "The Leap Across the Ocean",
-        subtitle: "Hanuman's journey to Lanka",
-        mood: "powerful",
-        instrument: "tanpura",
-        content: `When the monkey army reached the southern shore and faced the vast ocean, despair set in. Who could cross the mighty sea to reach Lanka and find Sita?
-
-Jambavan, the wise bear, approached Hanuman. "Son of Vayu, you have forgotten your powers! You can leap across this ocean. Remember who you are!"
-
-As Jambavan reminded Hanuman of his divine nature, the devotee began to grow. He expanded until he stood as tall as a mountain. With a mighty roar of "Jai Shri Ram!", he leaped into the sky.
-
-The ocean creatures watched in awe as Hanuman soared through the clouds. Demons tried to stop him; magical beings tried to trap him. But nothing could halt the flight of pure devotion. Hanuman crossed the hundred yojanas of ocean and landed in Lanka, ready to find his mother Sita.`
-      },
-      {
-        id: "h4",
-        title: "The Burning of Lanka",
-        subtitle: "Devotion turns into divine fire",
-        mood: "powerful",
-        instrument: "bells",
-        content: `In Lanka, Hanuman found Sita in the Ashoka grove, gave her Rama's ring, and assured her that rescue was coming. But he allowed himself to be captured by Ravana's forces - he wanted to see the demon king face to face.
-
-Before Ravana's court, Hanuman delivered Rama's message boldly. Enraged, Ravana ordered Hanuman's tail to be set on fire as punishment for a monkey's insolence.
-
-But as they wrapped his tail with cloth soaked in oil, Hanuman began to grow. More cloth was needed, then more. His tail extended through the streets of Lanka. When they finally lit the fire, Hanuman shrank, slipped from his bonds, and leaped across the golden city.
-
-Building by building, palace by palace, Hanuman burned Lanka with his flaming tail. Yet, by Sita's blessing, Ravana's inner quarters remained untouched. Having accomplished his mission, Hanuman extinguished his tail in the ocean and flew back to Rama with news that would launch the great war.`
-      }
-    ]
+    chapters: convertHanumanChaptersHindi()
   },
   {
     deityId: "durga",
