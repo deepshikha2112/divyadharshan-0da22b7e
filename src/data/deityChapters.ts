@@ -4,6 +4,7 @@ import { lakshmiPuranChapters, LakshmiPuranChapter } from './lakshmiPuranChapter
 import { deviSaptashatiChapters, DeviSaptashatiChapter } from './deviSaptashatiChapters';
 import { vishnuChaptersHindi } from './vishnuChaptersHindi';
 import { bhagavadGitaChaptersHindi } from './bhagavadGitaChaptersHindi';
+import { saiBabaChaptersHindi } from './saiBabaChaptersHindi';
 
 export interface DeityChapters {
   deityId: string;
@@ -57,6 +58,17 @@ const convertVishnuChaptersHindi = (): Chapter[] => {
 
 const convertBhagavadGitaChaptersHindi = (): Chapter[] => {
   return bhagavadGitaChaptersHindi.map((chapter) => ({
+    id: chapter.id,
+    title: chapter.title,
+    subtitle: chapter.subtitle,
+    mood: chapter.mood,
+    instrument: chapter.instrument,
+    content: chapter.content,
+  }));
+};
+
+const convertSaiBabaChaptersHindi = (): Chapter[] => {
+  return saiBabaChaptersHindi.map((chapter) => ({
     id: chapter.id,
     title: chapter.title,
     subtitle: chapter.subtitle,
@@ -478,6 +490,10 @@ The goddess Saraswati represents this hidden stream of wisdom. Through meditatio
 करहु अनुग्रह सोई, बुद्धि रासि सुभ गुन सदन॥`
       }
     ]
+  },
+  {
+    deityId: "saibaba",
+    chapters: convertSaiBabaChaptersHindi()
   }
 ];
 
