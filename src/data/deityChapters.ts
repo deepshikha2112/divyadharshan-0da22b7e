@@ -91,6 +91,28 @@ const convertHanumanChaptersHindi = (): Chapter[] => {
   }));
 };
 
+const convertGuruNanakChaptersHindi = (): Chapter[] => {
+  return guruNanakChaptersHindi.map((chapter) => ({
+    id: chapter.id,
+    title: chapter.title,
+    subtitle: chapter.subtitle,
+    mood: chapter.mood,
+    instrument: chapter.instrument,
+    content: chapter.content,
+  }));
+};
+
+const convertMuruganChaptersHindi = (): Chapter[] => {
+  return muruganChaptersHindi.map((chapter) => ({
+    id: chapter.id,
+    title: chapter.title,
+    subtitle: chapter.subtitle,
+    mood: chapter.mood,
+    instrument: chapter.instrument,
+    content: chapter.content,
+  }));
+};
+
 export const deityChaptersData: DeityChapters[] = [
   {
     deityId: "ganesha",
@@ -450,6 +472,14 @@ The goddess Saraswati represents this hidden stream of wisdom. Through meditatio
   {
     deityId: "saibaba",
     chapters: convertSaiBabaChaptersHindi()
+  },
+  {
+    deityId: "gurunanak",
+    chapters: convertGuruNanakChaptersHindi()
+  },
+  {
+    deityId: "murugan",
+    chapters: convertMuruganChaptersHindi()
   }
 ];
 

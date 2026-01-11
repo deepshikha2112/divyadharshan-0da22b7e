@@ -613,6 +613,30 @@ export const deities: Deity[] = [
     mantras: ["ॐ सरवणभवाय नमः", "वेल वेल मुरुगा", "ॐ शरवणभवाय नमः"],
     festivals: ["Thai Pusam", "Skanda Sashti", "Vaikasi Visakam", "Panguni Uthiram"],
     lifeLesson: "Face your battles with the courage of Murugan. His Vel represents focused spiritual energy - when you direct your mind with purpose, no obstacle can withstand you."
+  },
+  {
+    id: "gurunanak",
+    name: "Guru Nanak Dev Ji",
+    sanskrit: "गुरु नानक देव जी",
+    description: "The founder of Sikhism, who taught the oneness of God, equality of all humans, and selfless service.",
+    emoji: "🙏",
+    color: "bg-amber-500/20",
+    introduction: "Guru Nanak Dev Ji (1469-1539) was the founder of Sikhism and the first of the ten Sikh Gurus. Born in Talwandi (now Nankana Sahib, Pakistan), he traveled extensively, spreading his message of Ik Onkar (One God), equality, honest living, and sharing with others. His teachings form the foundation of the Sikh faith.",
+    chapters: [
+      {
+        id: 1,
+        title: "Divine Birth and Signs",
+        content: "Guru Nanak was born on Kartik Purnima in 1469 to Mehta Kalu and Mata Tripta in Talwandi. Divine signs accompanied his birth - the baby smiled instead of crying, and astrologers predicted he would be a great spiritual teacher who would guide humanity."
+      },
+      {
+        id: 2,
+        title: "Spiritual Awakening",
+        content: "At Sultanpur Lodhi, Guru Nanak had his divine experience at the Vein river. He disappeared for three days and returned with the revelation: 'There is no Hindu, there is no Muslim.' This marked the beginning of his spiritual mission to unite humanity under one God."
+      }
+    ],
+    mantras: ["ੴ ਸਤਿ ਨਾਮੁ", "ਵਾਹਿਗੁਰੂ", "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ"],
+    festivals: ["Guru Nanak Jayanti", "Baisakhi", "Gurpurab"],
+    lifeLesson: "Follow Guru Nanak's three pillars: Naam Japna (remember God), Kirat Karni (earn honestly), and Vand Chakna (share with others). In unity and service lies true spirituality."
   }
 ];
 
