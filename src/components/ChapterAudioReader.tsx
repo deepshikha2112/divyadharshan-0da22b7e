@@ -4,15 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BookOpen, Play, Pause, Square, Volume2, VolumeX, ChevronDown, ChevronUp, Headphones, BookOpenText, Loader2 } from 'lucide-react';
+import { BookOpen, Play, Pause, Square, Volume2, VolumeX, ChevronDown, ChevronUp, Headphones, BookOpenText, Loader2, Languages } from 'lucide-react';
 import { useDivineAudio, MoodType, InstrumentType } from '@/hooks/useDivineAudio';
 import { useElevenLabsTTS } from '@/hooks/useElevenLabsTTS';
 
 interface Chapter {
   id: string;
   title: string;
+  titleEnglish?: string;
   subtitle?: string;
+  subtitleEnglish?: string;
   content: string;
+  contentEnglish?: string;
   mood: MoodType;
   instrument: InstrumentType;
 }
@@ -32,6 +35,7 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
   const [mode, setMode] = useState<'read' | 'listen'>('read');
   const [volume, setVolumeState] = useState(0.35);
   const [isMuted, setIsMuted] = useState(false);
+  const [language, setLanguage] = useState<'hindi' | 'english'>('hindi');
 
   useEffect(() => {
     return () => {
@@ -64,6 +68,27 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
     }
   };
 
+  const getChapterContent = (chapter: Chapter): string => {
+    if (language === 'english' && chapter.contentEnglish) {
+      return chapter.contentEnglish;
+    }
+    return chapter.content;
+  };
+
+  const getChapterTitle = (chapter: Chapter): string => {
+    if (language === 'english' && chapter.titleEnglish) {
+      return chapter.titleEnglish;
+    }
+    return chapter.title;
+  };
+
+  const getChapterSubtitle = (chapter: Chapter): string | undefined => {
+    if (language === 'english' && chapter.subtitleEnglish) {
+      return chapter.subtitleEnglish;
+    }
+    return chapter.subtitle;
+  };
+
   const startListening = (chapter: Chapter) => {
     // Start background music
     if (playingChapter !== chapter.id) {
@@ -73,8 +98,8 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
       setVolume(volume * 0.3); // Lower existing music
     }
     
-    // Start narration with ElevenLabs
-    narration.startNarration(chapter.content);
+    // Start narration with ElevenLabs using current language content
+    narration.startNarration(getChapterContent(chapter));
     setListeningChapter(chapter.id);
   };
 
@@ -105,11 +130,18 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
     }
   };
 
-  // Speed control removed - ElevenLabs handles this server-side
-
   const toggleMute = () => {
     setIsMuted(!isMuted);
     setVolume(isMuted ? volume : 0);
+  };
+
+  const toggleLanguage = () => {
+    // Stop narration when changing language
+    if (listeningChapter) {
+      narration.stopNarration();
+      setListeningChapter(null);
+    }
+    setLanguage(language === 'hindi' ? 'english' : 'hindi');
   };
 
   const getMoodLabel = (mood: MoodType): string => {
@@ -144,33 +176,46 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
       <div className="flex items-center justify-between flex-wrap gap-2">
         <h3 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-primary" />
-          Divine Life Story
+          {language === 'hindi' ? 'दिव्य जीवन कथा' : 'Divine Life Story'}
         </h3>
-        <Tabs value={mode} onValueChange={(v) => setMode(v as 'read' | 'listen')} className="w-auto">
-          <TabsList className="h-9">
-            <TabsTrigger value="read" className="gap-1.5 text-xs px-3">
-              <BookOpenText className="w-3.5 h-3.5" />
-              Read
-            </TabsTrigger>
-            <TabsTrigger value="listen" className="gap-1.5 text-xs px-3">
-              <Headphones className="w-3.5 h-3.5" />
-              Listen
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex items-center gap-2">
+          {/* Language Toggle */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={toggleLanguage}
+            className="gap-1.5 text-xs px-3 h-9 bg-gradient-to-r from-cosmic-gold/20 to-cosmic-gold/10 border-cosmic-gold/30 hover:border-cosmic-gold/50 transition-all duration-300"
+          >
+            <Languages className="w-3.5 h-3.5" />
+            {language === 'hindi' ? '🇮🇳 हिंदी' : '🇬🇧 English'}
+          </Button>
+          
+          <Tabs value={mode} onValueChange={(v) => setMode(v as 'read' | 'listen')} className="w-auto">
+            <TabsList className="h-9">
+              <TabsTrigger value="read" className="gap-1.5 text-xs px-3">
+                <BookOpenText className="w-3.5 h-3.5" />
+                {language === 'hindi' ? 'पढ़ें' : 'Read'}
+              </TabsTrigger>
+              <TabsTrigger value="listen" className="gap-1.5 text-xs px-3">
+                <Headphones className="w-3.5 h-3.5" />
+                {language === 'hindi' ? 'सुनें' : 'Listen'}
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
 
       <div className="space-y-3">
         {chapters.map((chapter, index) => (
-          <Card key={chapter.id} className="overflow-hidden">
+          <Card key={chapter.id} className="overflow-hidden bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-sm border-cosmic-gold/20">
             <button
               onClick={() => toggleExpand(chapter.id)}
-              className="w-full p-4 flex items-center justify-between hover:bg-muted/30 transition-colors"
+              className="w-full p-4 flex items-center justify-between hover:bg-cosmic-gold/5 transition-colors"
             >
               <div className="text-left">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-                    Chapter {index + 1}
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-cosmic-gold/20 text-cosmic-gold font-medium border border-cosmic-gold/30">
+                    {language === 'hindi' ? `अध्याय ${index + 1}` : `Chapter ${index + 1}`}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     {getMoodLabel(chapter.mood)}
@@ -178,21 +223,21 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
                   {playingChapter === chapter.id && (
                     <span className="flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
                       <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      Music
+                      {language === 'hindi' ? 'संगीत' : 'Music'}
                     </span>
                   )}
                   {listeningChapter === chapter.id && (
                     <span className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400">
                       <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                      Narrating
+                      {language === 'hindi' ? 'वाचन' : 'Narrating'}
                     </span>
                   )}
                 </div>
                 <h4 className="font-heading font-semibold text-foreground">
-                  {chapter.title}
+                  {getChapterTitle(chapter)}
                 </h4>
-                {chapter.subtitle && (
-                  <p className="text-sm text-muted-foreground">{chapter.subtitle}</p>
+                {getChapterSubtitle(chapter) && (
+                  <p className="text-sm text-muted-foreground">{getChapterSubtitle(chapter)}</p>
                 )}
               </div>
               {expandedChapter === chapter.id ? (
@@ -207,13 +252,13 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
                 {/* Mode-specific Controls */}
                 {mode === 'read' ? (
                   /* Read Mode - Background Music Only */
-                  <div className="mb-4 p-3 bg-primary/5 rounded-lg">
+                  <div className="mb-4 p-3 bg-cosmic-gold/5 rounded-lg border border-cosmic-gold/20">
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <div className="flex items-center gap-3">
                         <Button
                           size="icon"
                           onClick={() => toggleBackgroundMusic(chapter)}
-                          className="w-10 h-10 rounded-full bg-primary hover:bg-primary/90"
+                          className="w-10 h-10 rounded-full bg-gradient-to-r from-cosmic-gold to-cosmic-gold/80 hover:from-cosmic-gold/90 hover:to-cosmic-gold/70 text-black"
                         >
                           {playingChapter === chapter.id ? (
                             <Pause className="w-4 h-4" />
@@ -223,10 +268,12 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
                         </Button>
                         <div>
                           <p className="text-sm font-medium text-foreground">
-                            {playingChapter === chapter.id ? "Reading with music..." : "Play ambient music"}
+                            {playingChapter === chapter.id 
+                              ? (language === 'hindi' ? "संगीत के साथ पढ़ रहे हैं..." : "Reading with music...")
+                              : (language === 'hindi' ? "पृष्ठभूमि संगीत चालू करें" : "Play ambient music")}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            {getMoodLabel(chapter.mood)} background
+                            {getMoodLabel(chapter.mood)} {language === 'hindi' ? 'पृष्ठभूमि' : 'background'}
                           </p>
                         </div>
                       </div>
@@ -297,14 +344,18 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
                           <p className="text-sm font-medium text-foreground">
                             {listeningChapter === chapter.id 
                               ? narration.isLoading
-                                ? "Loading audio..."
+                                ? (language === 'hindi' ? "ऑडियो लोड हो रहा है..." : "Loading audio...")
                                 : narration.isPaused 
-                                  ? "Paused" 
-                                  : `Narrating paragraph ${narration.currentParagraph + 1} of ${narration.totalParagraphs}...`
-                              : "Listen to this chapter"}
+                                  ? (language === 'hindi' ? "रुका हुआ" : "Paused")
+                                  : (language === 'hindi' 
+                                    ? `पैराग्राफ ${narration.currentParagraph + 1} / ${narration.totalParagraphs} पढ़ रहे हैं...`
+                                    : `Narrating paragraph ${narration.currentParagraph + 1} of ${narration.totalParagraphs}...`)
+                              : (language === 'hindi' ? "यह अध्याय सुनें" : "Listen to this chapter")}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            Scripture narration with {getMoodLabel(chapter.mood).toLowerCase()} music
+                            {language === 'hindi' 
+                              ? `${getMoodLabel(chapter.mood).toLowerCase()} संगीत के साथ कथा वाचन`
+                              : `Scripture narration with ${getMoodLabel(chapter.mood).toLowerCase()} music`}
                           </p>
                         </div>
                       </div>
@@ -316,14 +367,14 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
                         {narration.isLoading && (
                           <div className="flex items-center gap-2 text-blue-600">
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span className="text-xs">Generating audio...</span>
+                            <span className="text-xs">{language === 'hindi' ? 'ऑडियो तैयार हो रहा है...' : 'Generating audio...'}</span>
                           </div>
                         )}
                         {narration.error && (
                           <span className="text-xs text-red-500">{narration.error}</span>
                         )}
                         <div className="flex items-center gap-2 ml-auto">
-                          <span className="text-xs text-muted-foreground">Music</span>
+                          <span className="text-xs text-muted-foreground">{language === 'hindi' ? 'संगीत' : 'Music'}</span>
                           <Button variant="ghost" size="icon" onClick={toggleMute} className="h-8 w-8">
                             {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                           </Button>
@@ -341,17 +392,21 @@ const ChapterAudioReader = ({ chapters, deityName }: ChapterAudioReaderProps) =>
                 )}
 
                 {/* Chapter Content */}
-                <ScrollArea className="max-h-96">
-                  <div className="p-4 bg-muted/30 rounded-lg">
+                <ScrollArea className="max-h-[70vh]">
+                  <div className="p-4 bg-gradient-to-br from-cosmic-gold/5 to-transparent rounded-lg border border-cosmic-gold/10">
                     <div className="prose prose-sm dark:prose-invert max-w-none">
-                      {chapter.content.split('\n\n').map((paragraph, i) => (
+                      {getChapterContent(chapter).split('\n\n').map((paragraph, i) => (
                         <p 
                           key={i} 
-                          className={`text-foreground leading-relaxed mb-4 last:mb-0 transition-colors ${
+                          className={`text-foreground leading-relaxed mb-6 last:mb-0 text-base transition-colors ${
                             listeningChapter === chapter.id && narration.currentParagraph === i
-                              ? 'bg-blue-500/10 -mx-2 px-2 py-1 rounded border-l-2 border-blue-500'
+                              ? 'bg-blue-500/10 -mx-2 px-2 py-2 rounded border-l-2 border-blue-500'
                               : ''
-                          }`}
+                          } ${language === 'hindi' ? 'font-hindi' : ''}`}
+                          style={{ 
+                            lineHeight: '1.8',
+                            letterSpacing: language === 'hindi' ? '0.02em' : 'normal'
+                          }}
                         >
                           {paragraph}
                         </p>
