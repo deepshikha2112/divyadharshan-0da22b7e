@@ -19,6 +19,19 @@ export interface Deity {
   lifeLesson: string;
 }
 
+// Deity image imports
+import ganeshaImage from "@/assets/deities/ganesha.jpg";
+import shivaImage from "@/assets/deities/shiva.jpg";
+import vishnuImage from "@/assets/deities/vishnu.jpg";
+import durgaImage from "@/assets/deities/durga.jpg";
+import hanumanImage from "@/assets/deities/hanuman.jpg";
+import lakshmiImage from "@/assets/deities/lakshmi.jpg";
+import ramaImage from "@/assets/deities/rama.jpg";
+import krishnaImage from "@/assets/deities/krishna.jpg";
+import saibabaImage from "@/assets/deities/saibaba.jpg";
+import gurunanakImage from "@/assets/deities/gurunanak.jpg";
+import muruganImage from "@/assets/deities/murugan.jpg";
+
 export const deities: Deity[] = [
   {
     id: "ganesha",
@@ -27,6 +40,7 @@ export const deities: Deity[] = [
     description: "The remover of obstacles and the deity of beginnings, wisdom, and learning.",
     emoji: "🐘",
     color: "bg-primary/10",
+    image: ganeshaImage,
     introduction: "Lord Ganesha, also known as Ganapati and Vinayaka, is one of the most beloved and widely worshipped deities in Hinduism. With an elephant head and a human body, He represents wisdom, prosperity, and good fortune. He is honored at the beginning of all rituals and ceremonies as the remover of obstacles.",
     chapters: [
       {
@@ -81,6 +95,7 @@ export const deities: Deity[] = [
     description: "The supreme being who creates, protects, and transforms the universe.",
     emoji: "🔱",
     color: "bg-secondary/20",
+    image: shivaImage,
     introduction: "Lord Shiva, known as Mahadeva (the Great God), is one of the principal deities of Hinduism. He is the supreme being within Shaivism and represents the aspects of creation, preservation, and destruction. As the Adiyogi (first yogi), he is the source of yoga and meditation.",
     chapters: [
       {
@@ -135,6 +150,7 @@ export const deities: Deity[] = [
     description: "The preserver and protector of the universe, embodiment of mercy and goodness.",
     emoji: "🪷",
     color: "bg-accent/20",
+    image: vishnuImage,
     introduction: "Lord Vishnu is the supreme being who protects and preserves the universe. He rests on the cosmic serpent Shesha in the ocean of milk. Whenever evil threatens cosmic order, he incarnates on Earth to restore dharma. His ten avatars (Dashavatar) include Rama and Krishna.",
     chapters: [
       {
@@ -189,6 +205,7 @@ export const deities: Deity[] = [
     description: "The fierce warrior goddess who protects the righteous and destroys evil.",
     emoji: "🦁",
     color: "bg-primary/10",
+    image: durgaImage,
     introduction: "Goddess Durga, meaning 'the invincible', is the fierce form of the Divine Mother. Created by the combined energies of all the gods to defeat the buffalo demon Mahishasura, she represents the ultimate power of good over evil. She is worshipped as the protector of the universe and the source of all strength.",
     chapters: [
       {
@@ -243,6 +260,7 @@ export const deities: Deity[] = [
     description: "The embodiment of devotion, strength, and selfless service.",
     emoji: "🙏",
     color: "bg-accent/20",
+    image: hanumanImage,
     introduction: "Lord Hanuman, the mighty vanara (monkey god), is the embodiment of pure devotion (bhakti), selfless service (seva), and immense strength. As the greatest devotee of Lord Rama, he played a crucial role in the Ramayana. He represents what a devotee can achieve through unwavering faith.",
     chapters: [
       {
@@ -297,6 +315,7 @@ export const deities: Deity[] = [
     description: "The goddess of wealth, fortune, prosperity, and beauty.",
     emoji: "✨",
     color: "bg-secondary/20",
+    image: lakshmiImage,
     introduction: "Goddess Lakshmi is the divine consort of Lord Vishnu and the goddess of wealth, prosperity, fortune, and beauty. She emerged from the churning of the cosmic ocean (Samudra Manthan) and chose Vishnu as her eternal consort. She blesses devotees with both material and spiritual abundance.",
     chapters: [
       {
@@ -351,6 +370,7 @@ export const deities: Deity[] = [
     description: "The embodiment of dharma, the ideal man, king, and son.",
     emoji: "🏹",
     color: "bg-primary/10",
+    image: ramaImage,
     introduction: "Lord Rama, the seventh avatar of Vishnu, is celebrated as Maryada Purushottam - the ideal man who followed dharma perfectly. His life, as told in the Ramayana by Sage Valmiki and later by Tulsidas in Ramcharitmanas, is a guide for righteous living. He is worshipped as the embodiment of truth, duty, and virtue.",
     chapters: [
       {
@@ -405,6 +425,7 @@ export const deities: Deity[] = [
     description: "The divine charioteer, the speaker of the Bhagavad Gita, the complete avatar.",
     emoji: "🦚",
     color: "bg-accent/20",
+    image: krishnaImage,
     introduction: "Lord Krishna, the eighth avatar of Vishnu, is considered Purna Avatar - the complete incarnation. From the playful child of Vrindavan to the wise charioteer of Kurukshetra, he embodies love, wisdom, and divine play (leela). His teachings in the Bhagavad Gita guide millions on the path of dharma and self-realization.",
     chapters: [
       {
@@ -459,6 +480,7 @@ export const deities: Deity[] = [
     description: "The saint who taught unity of all religions and the importance of faith and patience.",
     emoji: "🙏",
     color: "bg-secondary/20",
+    image: saibabaImage,
     introduction: "Shirdi Sai Baba, the humble saint who lived in a dilapidated mosque in the small town of Shirdi, Maharashtra, is revered by millions across religions. His teachings of 'Shraddha' (faith) and 'Saburi' (patience) continue to guide devotees. He demonstrated that God is one, regardless of the name used.",
     chapters: [
       {
@@ -513,6 +535,7 @@ export const deities: Deity[] = [
     description: "The founder of Sikhism who taught the oneness of God and equality of all humans.",
     emoji: "☬",
     color: "bg-primary/10",
+    image: gurunanakImage,
     introduction: "Guru Nanak Dev Ji, born in 1469, is the founder of Sikhism and the first of the ten Sikh Gurus. His revolutionary teachings of one God, equality of all humans, honest living, and selfless service laid the foundation for a new path. His message transcended religious boundaries and social divisions.",
     chapters: [
       {
@@ -567,6 +590,7 @@ export const deities: Deity[] = [
     description: "The god of war and victory, the divine son of Shiva and Parvati.",
     emoji: "🦚",
     color: "bg-accent/20",
+    image: muruganImage,
     introduction: "Lord Murugan, also known as Kartikeya, Skanda, and Subramanya, is the Hindu god of war and victory. He is the elder son of Shiva and Parvati, and brother of Ganesha. He is especially revered in South India and among Tamil communities worldwide. His worship represents the victory of good over evil.",
     chapters: [
       {

@@ -26,7 +26,7 @@ const DeitiesSection = () => {
                 name={deity.name}
                 sanskrit={deity.sanskrit}
                 description={deity.description}
-                emoji={deity.emoji}
+                image={deity.image}
                 color={deity.color}
                 delay={index * 100}
               />

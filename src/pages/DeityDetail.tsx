@@ -85,8 +85,19 @@ const DeityDetail = () => {
           </Link>
           
           <div className="flex flex-col items-center text-center">
-            <div className={`w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center text-7xl md:text-8xl ${deity.color} shadow-glow mb-6 animate-float`}>
-              {deity.emoji}
+            {/* Divine Hero Image */}
+            <div className={`w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden shadow-glow mb-6 animate-float ring-4 ring-primary/30`}>
+              {deity.image ? (
+                <img 
+                  src={deity.image} 
+                  alt={deity.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className={`w-full h-full flex items-center justify-center text-7xl md:text-8xl ${deity.color}`}>
+                  {deity.emoji}
+                </div>
+              )}
             </div>
             
             <p className="text-primary font-medium text-lg mb-2">{deity.sanskrit}</p>
