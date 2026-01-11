@@ -5,10 +5,13 @@ import MeditationPreview from "@/components/MeditationPreview";
 import MantraSection from "@/components/MantraSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import Footer from "@/components/Footer";
+import CosmicBackground from "@/components/CosmicBackground";
+import BottomNavigation from "@/components/BottomNavigation";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
+      <CosmicBackground />
       <Header />
       <HeroSection />
       <DeitiesSection />
@@ -16,6 +19,7 @@ const Index = () => {
       <MantraSection />
       <CategoriesSection />
       <Footer />
+      <BottomNavigation />
     </main>
   );
 };

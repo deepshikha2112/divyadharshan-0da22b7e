@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,8 +19,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Playfair Display', 'serif'],
+        heading: ['Cormorant Garamond', 'Playfair Display', 'serif'],
         body: ['Lato', 'sans-serif'],
+        display: ['Cormorant Garamond', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,30 +67,24 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        saffron: {
-          DEFAULT: "hsl(var(--saffron))",
-          light: "hsl(var(--saffron-light))",
-        },
-        maroon: {
-          DEFAULT: "hsl(var(--maroon))",
-          light: "hsl(var(--maroon-light))",
-        },
-        gold: {
-          DEFAULT: "hsl(var(--gold))",
-          light: "hsl(var(--gold-light))",
-        },
-        cream: {
-          DEFAULT: "hsl(var(--cream))",
-          dark: "hsl(var(--cream-dark))",
-        },
-        temple: {
-          brown: "hsl(var(--temple-brown))",
+        cosmic: {
+          deep: "hsl(var(--cosmic-deep))",
+          purple: "hsl(var(--cosmic-purple))",
+          violet: "hsl(var(--cosmic-violet))",
+          blue: "hsl(var(--cosmic-blue))",
+          gold: "hsl(var(--cosmic-gold))",
+          pearl: "hsl(var(--cosmic-pearl))",
+          pink: "hsl(var(--cosmic-pink))",
+          glow: "hsl(var(--cosmic-glow))",
         },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "calc(var(--radius) + 4px)",
+        "2xl": "calc(var(--radius) + 8px)",
+        "3xl": "calc(var(--radius) + 16px)",
       },
       keyframes: {
         "accordion-down": {
@@ -95,20 +95,63 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "scale-in": {
+          "0%": { transform: "scale(0.95)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        "slide-in-right": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-15px)" },
+        },
+        glow: {
+          "0%, 100%": { boxShadow: "0 0 30px rgba(180, 140, 255, 0.3)" },
+          "50%": { boxShadow: "0 0 60px rgba(255, 200, 100, 0.5)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.6", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.05)" },
+        },
+        "rotate-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+        "scale-in": "scale-in 0.3s ease-out",
+        "slide-in-right": "slide-in-right 0.3s ease-out",
+        float: "float 6s ease-in-out infinite",
+        "float-slow": "float 8s ease-in-out infinite",
+        glow: "glow 3s ease-in-out infinite",
+        shimmer: "shimmer 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "rotate-slow": "rotate-slow 30s linear infinite",
       },
       backgroundImage: {
-        'gradient-sacred': 'var(--gradient-sacred)',
-        'gradient-sunset': 'var(--gradient-sunset)',
-        'gradient-warm': 'var(--gradient-warm)',
+        "cosmic-gradient": "linear-gradient(135deg, hsl(260 40% 15%) 0%, hsl(280 30% 8%) 50%, hsl(260 40% 6%) 100%)",
+        "divine-gradient": "linear-gradient(180deg, hsl(270 50% 40% / 0.3) 0%, hsl(260 40% 8%) 100%)",
+        "gold-gradient": "linear-gradient(135deg, hsl(42 90% 65%) 0%, hsl(35 80% 55%) 100%)",
+        "glass-gradient": "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
       },
       boxShadow: {
-        'sacred': 'var(--shadow-soft)',
-        'glow': 'var(--shadow-glow)',
-        'gold': 'var(--shadow-gold)',
+        cosmic: "0 0 60px hsl(270 60% 50% / 0.3)",
+        gold: "0 0 40px hsl(42 90% 65% / 0.3)",
+        glow: "0 0 80px hsl(270 80% 75% / 0.4)",
+        glass: "0 8px 32px rgba(0, 0, 0, 0.3)",
       },
     },
   },
