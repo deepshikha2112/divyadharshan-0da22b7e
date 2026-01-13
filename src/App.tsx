@@ -14,6 +14,10 @@ import Meditation from "./pages/Meditation";
 import Ramcharitmanas from "./pages/Ramcharitmanas";
 import BhagavadGita from "./pages/BhagavadGita";
 import VishnuPuran from "./pages/VishnuPuran";
+import Panchang from "./pages/Panchang";
+import PrayerJournal from "./pages/PrayerJournal";
+import VratGuide from "./pages/VratGuide";
+import AartiPage from "./pages/Aarti";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,71 +31,18 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/auth" element={<Auth />} />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Index />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/deity/:id"
-              element={
-                <ProtectedRoute>
-                  <DeityDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/guidance"
-              element={
-                <ProtectedRoute>
-                  <Guidance />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/compatibility"
-              element={
-                <ProtectedRoute>
-                  <Compatibility />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/meditation"
-              element={
-                <ProtectedRoute>
-                  <Meditation />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/ramcharitmanas"
-              element={
-                <ProtectedRoute>
-                  <Ramcharitmanas />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/bhagavad-gita"
-              element={
-                <ProtectedRoute>
-                  <BhagavadGita />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/vishnu-puran"
-              element={
-                <ProtectedRoute>
-                  <VishnuPuran />
-                </ProtectedRoute>
-              }
-            />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+            <Route path="/deity/:id" element={<ProtectedRoute><DeityDetail /></ProtectedRoute>} />
+            <Route path="/guidance" element={<ProtectedRoute><Guidance /></ProtectedRoute>} />
+            <Route path="/compatibility" element={<ProtectedRoute><Compatibility /></ProtectedRoute>} />
+            <Route path="/meditation" element={<ProtectedRoute><Meditation /></ProtectedRoute>} />
+            <Route path="/ramcharitmanas" element={<ProtectedRoute><Ramcharitmanas /></ProtectedRoute>} />
+            <Route path="/bhagavad-gita" element={<ProtectedRoute><BhagavadGita /></ProtectedRoute>} />
+            <Route path="/vishnu-puran" element={<ProtectedRoute><VishnuPuran /></ProtectedRoute>} />
+            <Route path="/panchang" element={<ProtectedRoute><Panchang /></ProtectedRoute>} />
+            <Route path="/prayer-journal" element={<ProtectedRoute><PrayerJournal /></ProtectedRoute>} />
+            <Route path="/vrat-guide" element={<ProtectedRoute><VratGuide /></ProtectedRoute>} />
+            <Route path="/aarti" element={<ProtectedRoute><AartiPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

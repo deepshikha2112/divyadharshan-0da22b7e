@@ -6,109 +6,115 @@
 
 @layer base {
   :root {
-    /* Cosmic Divine Theme - Light */
-    --background: 260 30% 8%;
-    --foreground: 45 20% 95%;
+    /* Traditional Temple Theme - Warm & Sacred */
+    --background: 30 25% 97%;
+    --foreground: 20 30% 15%;
 
-    --card: 260 25% 12%;
-    --card-foreground: 45 20% 95%;
+    --card: 30 40% 98%;
+    --card-foreground: 20 30% 15%;
 
-    --popover: 260 25% 12%;
-    --popover-foreground: 45 20% 95%;
+    --popover: 30 40% 98%;
+    --popover-foreground: 20 30% 15%;
 
-    /* Primary: Cosmic Violet */
-    --primary: 270 60% 70%;
-    --primary-foreground: 260 30% 10%;
+    /* Primary: Sacred Saffron */
+    --primary: 25 85% 55%;
+    --primary-foreground: 30 25% 98%;
 
-    /* Secondary: Divine Gold */
-    --secondary: 42 80% 65%;
-    --secondary-foreground: 260 30% 10%;
+    /* Secondary: Temple Gold */
+    --secondary: 42 80% 50%;
+    --secondary-foreground: 20 30% 15%;
 
-    /* Muted: Deep Space */
-    --muted: 260 20% 18%;
-    --muted-foreground: 45 15% 65%;
+    /* Muted: Soft Cream */
+    --muted: 35 30% 92%;
+    --muted-foreground: 20 20% 45%;
 
-    /* Accent: Celestial Gold */
-    --accent: 45 90% 70%;
-    --accent-foreground: 260 30% 10%;
+    /* Accent: Divine Maroon */
+    --accent: 0 60% 40%;
+    --accent-foreground: 30 25% 98%;
 
     --destructive: 0 70% 55%;
-    --destructive-foreground: 45 20% 95%;
+    --destructive-foreground: 30 25% 98%;
 
-    --border: 260 20% 25%;
-    --input: 260 20% 20%;
-    --ring: 270 60% 70%;
+    --border: 30 20% 88%;
+    --input: 30 20% 94%;
+    --ring: 25 85% 55%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Cosmic colors */
-    --cosmic-deep: 260 40% 6%;
-    --cosmic-purple: 270 50% 50%;
-    --cosmic-violet: 280 60% 60%;
-    --cosmic-blue: 220 70% 60%;
-    --cosmic-gold: 42 90% 65%;
-    --cosmic-pearl: 45 30% 95%;
-    --cosmic-pink: 330 60% 70%;
-    --cosmic-glow: 270 80% 75%;
+    /* Temple colors */
+    --temple-saffron: 25 90% 55%;
+    --temple-gold: 42 85% 50%;
+    --temple-maroon: 0 55% 35%;
+    --temple-cream: 35 40% 96%;
+    --temple-white: 30 30% 99%;
+    --temple-terracotta: 15 60% 45%;
+    --temple-sandal: 35 50% 80%;
+    --temple-copper: 25 70% 45%;
 
-    /* Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    /* Glassmorphism for Temple */
+    --glass-bg: rgba(255, 250, 245, 0.85);
+    --glass-border: rgba(200, 150, 100, 0.25);
+    --glass-shadow: 0 8px 32px rgba(100, 50, 20, 0.1);
 
     /* Divine gradients */
-    --gradient-cosmic: linear-gradient(135deg, hsl(260 40% 15%) 0%, hsl(280 30% 8%) 50%, hsl(260 40% 6%) 100%);
-    --gradient-divine: linear-gradient(180deg, hsl(270 50% 40% / 0.3) 0%, hsl(260 40% 8%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(42 90% 65%) 0%, hsl(35 80% 55%) 100%);
-    --gradient-orb: radial-gradient(circle, hsl(270 60% 70% / 0.4) 0%, transparent 70%);
+    --gradient-temple: linear-gradient(180deg, hsl(30 30% 97%) 0%, hsl(35 40% 93%) 100%);
+    --gradient-saffron: linear-gradient(135deg, hsl(25 90% 55%) 0%, hsl(35 80% 50%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(42 85% 55%) 0%, hsl(35 75% 45%) 100%);
+    --gradient-sacred: linear-gradient(180deg, hsl(35 40% 96%) 0%, hsl(30 30% 92%) 100%);
 
     /* Shadows */
-    --shadow-cosmic: 0 0 60px hsl(270 60% 50% / 0.3);
-    --shadow-gold: 0 0 40px hsl(42 90% 65% / 0.3);
-    --shadow-glow: 0 0 80px hsl(270 80% 75% / 0.4);
+    --shadow-temple: 0 4px 20px hsl(25 50% 50% / 0.15);
+    --shadow-gold: 0 4px 25px hsl(42 80% 50% / 0.2);
+    --shadow-warm: 0 8px 40px hsl(20 40% 40% / 0.1);
 
     /* Typography */
     --font-heading: 'Cormorant Garamond', 'Playfair Display', serif;
     --font-body: 'Lato', sans-serif;
+    --font-hindi: 'Noto Sans Devanagari', sans-serif;
 
-    --sidebar-background: 260 25% 10%;
-    --sidebar-foreground: 45 20% 90%;
-    --sidebar-primary: 270 60% 70%;
-    --sidebar-primary-foreground: 260 30% 10%;
-    --sidebar-accent: 260 20% 18%;
-    --sidebar-accent-foreground: 45 20% 90%;
-    --sidebar-border: 260 20% 25%;
-    --sidebar-ring: 270 60% 70%;
+    --sidebar-background: 30 35% 96%;
+    --sidebar-foreground: 20 30% 20%;
+    --sidebar-primary: 25 85% 55%;
+    --sidebar-primary-foreground: 30 25% 98%;
+    --sidebar-accent: 35 30% 90%;
+    --sidebar-accent-foreground: 20 30% 20%;
+    --sidebar-border: 30 25% 85%;
+    --sidebar-ring: 25 85% 55%;
   }
 
   .dark {
-    --background: 260 30% 8%;
-    --foreground: 45 20% 95%;
+    /* Dark mode with temple warmth */
+    --background: 20 20% 8%;
+    --foreground: 35 30% 95%;
 
-    --card: 260 25% 12%;
-    --card-foreground: 45 20% 95%;
+    --card: 20 18% 12%;
+    --card-foreground: 35 30% 95%;
 
-    --popover: 260 25% 12%;
-    --popover-foreground: 45 20% 95%;
+    --popover: 20 18% 12%;
+    --popover-foreground: 35 30% 95%;
 
-    --primary: 270 60% 70%;
-    --primary-foreground: 260 30% 10%;
+    --primary: 25 80% 60%;
+    --primary-foreground: 20 20% 8%;
 
-    --secondary: 42 80% 65%;
-    --secondary-foreground: 260 30% 10%;
+    --secondary: 42 75% 55%;
+    --secondary-foreground: 20 20% 8%;
 
-    --muted: 260 20% 18%;
-    --muted-foreground: 45 15% 65%;
+    --muted: 20 15% 18%;
+    --muted-foreground: 35 20% 65%;
 
-    --accent: 45 90% 70%;
-    --accent-foreground: 260 30% 10%;
+    --accent: 0 55% 50%;
+    --accent-foreground: 35 30% 95%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 45 20% 95%;
+    --destructive-foreground: 35 30% 95%;
 
-    --border: 260 20% 25%;
-    --input: 260 20% 20%;
-    --ring: 270 60% 70%;
+    --border: 20 15% 22%;
+    --input: 20 15% 18%;
+    --ring: 25 80% 60%;
+
+    --glass-bg: rgba(30, 20, 15, 0.85);
+    --glass-border: rgba(200, 150, 100, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -123,7 +129,7 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
-    background: linear-gradient(135deg, hsl(260 40% 8%) 0%, hsl(280 35% 6%) 50%, hsl(260 40% 5%) 100%);
+    background: linear-gradient(180deg, hsl(30 30% 97%) 0%, hsl(35 35% 94%) 50%, hsl(30 25% 96%) 100%);
     min-height: 100vh;
   }
 
@@ -133,16 +139,16 @@
 }
 
 @layer components {
-  .cosmic-gradient {
-    background: var(--gradient-cosmic);
+  .temple-gradient {
+    background: var(--gradient-temple);
   }
 
-  .divine-gradient {
-    background: var(--gradient-divine);
+  .saffron-gradient {
+    background: var(--gradient-saffron);
   }
 
-  .text-gradient-cosmic {
-    background: linear-gradient(135deg, hsl(270 60% 75%) 0%, hsl(42 90% 70%) 100%);
+  .text-gradient-saffron {
+    background: linear-gradient(135deg, hsl(25 90% 50%) 0%, hsl(42 85% 50%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -155,67 +161,70 @@
     background-clip: text;
   }
 
-  .glass-card {
+  .temple-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
   }
 
-  .glass-card-dark {
-    background: rgba(20, 10, 40, 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(180, 140, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  .temple-card-warm {
+    background: linear-gradient(135deg, hsl(35 45% 97%) 0%, hsl(30 35% 95%) 100%);
+    border: 1px solid hsl(30 30% 88%);
+    box-shadow: 0 4px 20px hsl(25 40% 50% / 0.08);
   }
 
-  .glass-card-glow {
-    background: rgba(180, 140, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(180, 140, 255, 0.3);
-    box-shadow: 0 0 40px rgba(180, 140, 255, 0.15), 0 8px 32px rgba(0, 0, 0, 0.2);
+  .temple-card-saffron {
+    background: linear-gradient(135deg, hsl(25 60% 96%) 0%, hsl(30 50% 94%) 100%);
+    border: 1px solid hsl(25 50% 85%);
+    box-shadow: 0 4px 24px hsl(25 60% 50% / 0.12);
   }
 
-  .shadow-cosmic {
-    box-shadow: var(--shadow-cosmic);
+  .shadow-temple {
+    box-shadow: var(--shadow-temple);
   }
 
-  .shadow-divine-glow {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .glow-text {
-    text-shadow: 0 0 20px currentColor;
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
   }
 
   .divine-button {
-    background: linear-gradient(135deg, rgba(180, 140, 255, 0.3) 0%, rgba(255, 200, 100, 0.2) 100%);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 30px rgba(180, 140, 255, 0.2);
+    background: linear-gradient(135deg, hsl(25 85% 55%) 0%, hsl(35 80% 50%) 100%);
+    border: 1px solid hsl(30 70% 60% / 0.3);
+    box-shadow: 0 4px 15px hsl(25 80% 50% / 0.25);
     transition: all 0.3s ease;
+    color: white;
   }
 
   .divine-button:hover {
-    background: linear-gradient(135deg, rgba(180, 140, 255, 0.5) 0%, rgba(255, 200, 100, 0.3) 100%);
-    box-shadow: 0 0 50px rgba(180, 140, 255, 0.4);
-    transform: scale(1.02);
+    background: linear-gradient(135deg, hsl(25 85% 50%) 0%, hsl(35 80% 45%) 100%);
+    box-shadow: 0 6px 20px hsl(25 80% 50% / 0.35);
+    transform: translateY(-1px);
   }
 
-  .cosmic-input {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: hsl(45 20% 95%);
+  .temple-input {
+    background: hsl(35 40% 98%);
+    border: 1px solid hsl(30 25% 85%);
+    color: hsl(20 30% 15%);
   }
 
-  .cosmic-input:focus {
-    border-color: rgba(180, 140, 255, 0.5);
-    box-shadow: 0 0 20px rgba(180, 140, 255, 0.2);
+  .temple-input:focus {
+    border-color: hsl(25 70% 55%);
+    box-shadow: 0 0 0 3px hsl(25 70% 55% / 0.15);
   }
 
-  .cosmic-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+  .temple-input::placeholder {
+    color: hsl(20 15% 55%);
+  }
+
+  /* Diya flame animation */
+  .diya-glow {
+    animation: diyaFlame 2s ease-in-out infinite alternate;
+  }
+
+  /* Om symbol pulse */
+  .om-pulse {
+    animation: omPulse 4s ease-in-out infinite;
   }
 }
 
@@ -245,19 +254,15 @@
   }
 
   .animate-glow {
-    animation: glow 3s ease-in-out infinite alternate;
+    animation: glowWarm 3s ease-in-out infinite alternate;
   }
 
   .animate-pulse-slow {
     animation: pulse-slow 4s ease-in-out infinite;
   }
 
-  .animate-rotate-slow {
-    animation: rotateSlow 30s linear infinite;
-  }
-
-  .animate-shimmer {
-    animation: shimmer 3s ease-in-out infinite;
+  .animate-diya {
+    animation: diyaFlame 2s ease-in-out infinite alternate;
   }
 
   .animation-delay-100 { animation-delay: 100ms; }
@@ -310,23 +315,42 @@
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-10px); }
 }
 
-@keyframes glow {
+@keyframes glowWarm {
   from { 
-    box-shadow: 0 0 30px hsl(270 60% 50% / 0.3);
-    filter: brightness(1);
+    box-shadow: 0 0 20px hsl(25 70% 50% / 0.2);
   }
   to { 
-    box-shadow: 0 0 60px hsl(42 90% 65% / 0.5);
-    filter: brightness(1.1);
+    box-shadow: 0 0 35px hsl(42 80% 55% / 0.35);
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+@keyframes diyaFlame {
+  0% { 
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+  }
+  100% { 
+    filter: brightness(1.05);
+    transform: scale(0.98);
+  }
+}
+
+@keyframes omPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.9; 
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 1; 
+  }
 }
 
 @keyframes pulse-slow {
@@ -335,32 +359,27 @@
     opacity: 1; 
   }
   50% { 
-    transform: scale(1.03); 
-    opacity: 0.9; 
+    transform: scale(1.02); 
+    opacity: 0.95; 
   }
 }
 
-@keyframes rotateSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Cosmic scrollbar */
+/* Temple-inspired scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(260 30% 10%);
+  background: hsl(35 30% 94%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, hsl(270 60% 50%) 0%, hsl(42 80% 50%) 100%);
-  border-radius: 3px;
+  background: linear-gradient(180deg, hsl(25 70% 55%) 0%, hsl(42 75% 50%) 100%);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, hsl(270 60% 60%) 0%, hsl(42 80% 60%) 100%);
+  background: linear-gradient(180deg, hsl(25 70% 50%) 0%, hsl(42 75% 45%) 100%);
 }
 
 /* Mobile optimizations */
@@ -380,6 +399,22 @@
 
 /* Selection styling */
 ::selection {
-  background: hsl(270 60% 50% / 0.4);
-  color: hsl(45 20% 95%);
+  background: hsl(25 70% 55% / 0.3);
+  color: hsl(20 30% 15%);
+}
+
+/* Hindi/Devanagari text styling */
+.font-hindi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+/* Temple bell animation for audio */
+.temple-bell {
+  animation: templeBell 0.5s ease-out;
+}
+
+@keyframes templeBell {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
 }

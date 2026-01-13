@@ -10,8 +10,11 @@ const Header = () => {
 
   const navLinks = [
     { href: "/#deities", label: "Deities" },
+    { href: "/panchang", label: "Panchang" },
+    { href: "/aarti", label: "Aarti" },
+    { href: "/vrat-guide", label: "Vrat" },
+    { href: "/prayer-journal", label: "Journal" },
     { href: "/meditation", label: "Meditation" },
-    { href: "/guidance", label: "Guidance" },
   ];
 
   const isActive = (href: string) => {
@@ -26,15 +29,15 @@ const Header = () => {
       transition={{ duration: 0.5 }}
       className="fixed top-0 left-0 right-0 z-50"
       style={{
-        background: "rgba(20, 10, 40, 0.8)",
+        background: "rgba(255, 250, 245, 0.95)",
         backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(180, 140, 255, 0.1)",
+        borderBottom: "1px solid rgba(200, 150, 100, 0.2)",
       }}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <span className="text-2xl">✨</span>
-          <span className="font-heading text-xl font-semibold text-cosmic-pearl">
+          <span className="text-2xl">🙏</span>
+          <span className="font-heading text-xl font-semibold text-foreground">
             Divya Darshan
           </span>
         </Link>
@@ -45,10 +48,10 @@ const Header = () => {
             <Link 
               key={link.href}
               to={link.href} 
-              className={`transition-colors font-body ${
+              className={`transition-colors font-body text-sm ${
                 isActive(link.href) 
-                  ? "text-cosmic-gold" 
-                  : "text-cosmic-pearl/60 hover:text-cosmic-pearl"
+                  ? "text-primary font-medium" 
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {link.label}
