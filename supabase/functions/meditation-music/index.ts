@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { encode as base64Encode } from "https://deno.land/std@0.168.0/encoding/base64.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.89.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -35,31 +36,65 @@ const MOOD_PROMPTS: Record<string, string> = {
   emotional: "Heart-centered warm frequencies, gentle emotional release ambient, soft strings-like synthesizer, comforting meditation soundscape. Continuous healing audio. 45 BPM."
 };
 
+const VALID_MOODS = Object.keys(MOOD_PROMPTS);
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Validate authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: claimsError } = await supabase.auth.getUser(token);
+    
+    if (claimsError || !claimsData?.user) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { mood, duration = 30 } = await req.json();
     
+    // Validate mood parameter
+    if (!mood || !VALID_MOODS.includes(mood)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid mood parameter" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate duration
+    const safeDuration = Math.min(Math.max(Number(duration) || 30, 10), 120);
+
     // Try ELEVENLABS_API_KEY first, then fallback to ELEVENLABS_API_KEY_1
     const ELEVENLABS_API_KEY = Deno.env.get("ELEVENLABS_API_KEY") || Deno.env.get("ELEVENLABS_API_KEY_1");
 
     if (!ELEVENLABS_API_KEY) {
-      console.error("ElevenLabs API key not configured");
+      console.error("[meditation-music] API key not configured");
       return new Response(
-        JSON.stringify({ error: "ElevenLabs API key not configured" }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, "Content-Type": "application/json" } 
-        }
+        JSON.stringify({ error: "Service temporarily unavailable" }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const prompt = MOOD_PROMPTS[mood] || MOOD_PROMPTS.peaceful;
-    
-    console.log(`Generating meditation music for mood: ${mood}, duration: ${duration}s`);
+    const prompt = MOOD_PROMPTS[mood];
 
     const response = await fetch(
       "https://api.elevenlabs.io/v1/music",
@@ -71,25 +106,20 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           prompt: prompt,
-          duration_seconds: Math.min(duration, 120), // Max 120 seconds
+          duration_seconds: safeDuration,
         }),
       }
     );
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("ElevenLabs API error:", response.status, errorText);
+      console.error("[meditation-music] API error:", response.status);
       return new Response(
-        JSON.stringify({ error: `ElevenLabs API error: ${response.status}` }),
-        { 
-          status: response.status, 
-          headers: { ...corsHeaders, "Content-Type": "application/json" } 
-        }
+        JSON.stringify({ error: "Audio generation failed" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     const audioBuffer = await response.arrayBuffer();
-    console.log(`Generated meditation audio buffer size: ${audioBuffer.byteLength}`);
     
     // Return as base64 for caching on client
     const base64Audio = base64Encode(audioBuffer);
@@ -98,7 +128,7 @@ serve(async (req) => {
       JSON.stringify({ 
         audioContent: base64Audio,
         mood,
-        duration 
+        duration: safeDuration 
       }),
       {
         headers: {
@@ -107,15 +137,11 @@ serve(async (req) => {
         },
       }
     );
-  } catch (error: unknown) {
-    console.error("Meditation music generation error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Failed to generate meditation music";
+  } catch (error) {
+    console.error("[meditation-music] Internal error:", error);
     return new Response(
-      JSON.stringify({ error: errorMessage }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, "Content-Type": "application/json" } 
-      }
+      JSON.stringify({ error: "Service error. Please try again later." }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
