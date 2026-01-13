@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.89.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,23 +13,60 @@ serve(async (req) => {
   }
 
   try {
+    // Validate authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: claimsError } = await supabase.auth.getUser(token);
+    
+    if (claimsError || !claimsData?.user) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { text, voiceId } = await req.json();
     const ELEVENLABS_API_KEY = Deno.env.get("ELEVENLABS_API_KEY");
 
     if (!ELEVENLABS_API_KEY) {
-      console.error("ELEVENLABS_API_KEY is not configured");
-      throw new Error("ELEVENLABS_API_KEY is not configured");
+      console.error("[elevenlabs-tts] API key not configured");
+      return new Response(
+        JSON.stringify({ error: "Service temporarily unavailable" }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     if (!text || text.trim().length === 0) {
-      throw new Error("Text is required for narration");
+      return new Response(
+        JSON.stringify({ error: "Text is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    console.log(`Generating TTS for text length: ${text.length}, voice: ${voiceId || 'default'}`);
+    // Limit text length to prevent abuse
+    if (text.length > 5000) {
+      return new Response(
+        JSON.stringify({ error: "Text too long (max 5000 characters)" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     // Use George voice (calm, clear, male) for devotional narration
-    // Or Sarah for female voice option
-    const selectedVoiceId = voiceId || "JBFqnCBsd6RMkjVDRZzb"; // George - calm male voice
+    const selectedVoiceId = voiceId || "JBFqnCBsd6RMkjVDRZzb";
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${selectedVoiceId}?output_format=mp3_44100_128`,
@@ -40,26 +78,27 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           text,
-          model_id: "eleven_multilingual_v2", // Best for Hindi/Sanskrit content
+          model_id: "eleven_multilingual_v2",
           voice_settings: {
-            stability: 0.7, // Higher for devotional, calm narration
+            stability: 0.7,
             similarity_boost: 0.75,
-            style: 0.3, // Lower for more natural reading
+            style: 0.3,
             use_speaker_boost: true,
-            speed: 0.85, // Slower for scripture reading
+            speed: 0.85,
           },
         }),
       }
     );
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("ElevenLabs API error:", response.status, errorText);
-      throw new Error(`ElevenLabs API error: ${response.status}`);
+      console.error("[elevenlabs-tts] API error:", response.status);
+      return new Response(
+        JSON.stringify({ error: "Audio generation failed" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const audioBuffer = await response.arrayBuffer();
-    console.log(`Generated audio buffer size: ${audioBuffer.byteLength}`);
 
     return new Response(audioBuffer, {
       headers: {
@@ -68,12 +107,11 @@ serve(async (req) => {
       },
     });
   } catch (error) {
-    console.error("TTS generation error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error("[elevenlabs-tts] Internal error:", error);
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ error: "Service error. Please try again later." }),
       {
-        status: 400,
+        status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
