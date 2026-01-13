@@ -9,7 +9,7 @@ const Header = () => {
   const location = useLocation();
 
   const navLinks = [
-    { href: "/#deities", label: "Deities" },
+    { href: "/home#deities", label: "Deities" },
     { href: "/panchang", label: "Panchang" },
     { href: "/aarti", label: "Aarti" },
     { href: "/vrat-guide", label: "Vrat" },
@@ -18,7 +18,7 @@ const Header = () => {
   ];
 
   const isActive = (href: string) => {
-    if (href.startsWith("/#")) return location.pathname === "/" && location.hash === href.substring(1);
+    if (href.startsWith("/home#")) return location.pathname === "/home" && location.hash === href.substring(5);
     return location.pathname === href;
   };
 
@@ -35,7 +35,7 @@ const Header = () => {
       }}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/home" className="flex items-center gap-3">
           <span className="text-2xl">✨</span>
           <span className="font-heading text-xl font-semibold text-cosmic-pearl">
             Divya Darshan
@@ -89,7 +89,7 @@ const Header = () => {
           >
             <div className="flex flex-col h-full py-6">
               <div className="flex items-center mb-8">
-                <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
+                <Link to="/home" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
                   <span className="text-xl">✨</span>
                   <span className="font-heading font-semibold text-cosmic-pearl">
                     Divya Darshan
