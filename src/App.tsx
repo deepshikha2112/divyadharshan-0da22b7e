@@ -19,6 +19,9 @@ import Panchang from "./pages/Panchang";
 import PrayerJournal from "./pages/PrayerJournal";
 import VratGuide from "./pages/VratGuide";
 import AartiPage from "./pages/Aarti";
+import SacredStories from "./pages/SacredStories";
+import SaintsGurus from "./pages/SaintsGurus";
+import SpiritualTechniques from "./pages/SpiritualTechniques";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +48,9 @@ const App = () => (
             <Route path="/prayer-journal" element={<ProtectedRoute><PrayerJournal /></ProtectedRoute>} />
             <Route path="/vrat-guide" element={<ProtectedRoute><VratGuide /></ProtectedRoute>} />
             <Route path="/aarti" element={<ProtectedRoute><AartiPage /></ProtectedRoute>} />
+            <Route path="/sacred-stories" element={<ProtectedRoute><SacredStories /></ProtectedRoute>} />
+            <Route path="/saints-gurus" element={<ProtectedRoute><SaintsGurus /></ProtectedRoute>} />
+            <Route path="/spiritual-techniques" element={<ProtectedRoute><SpiritualTechniques /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

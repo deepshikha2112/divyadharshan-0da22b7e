@@ -55,6 +55,7 @@ const categories = [
     descriptionEn: "Sai Baba, Guru Nanak, Kabir, Adi Shankaracharya, Mirabai, Tulsidas",
     icon: Users,
     count: "40+ संत",
+    route: "/saints-gurus",
     route: "/deity/saibaba",
     features: ["Life Summary", "Core Teachings", "Powerful Quote", "Modern Application"]
   },
@@ -66,6 +67,7 @@ const categories = [
     descriptionEn: "Practical remedies for anxiety, stress, financial & relationship problems",
     icon: Brain,
     count: "50+ तकनीक",
+    route: "/spiritual-techniques",
     route: "/guidance",
     features: ["Step-by-step Method", "Time & Duration", "Expected Benefits", "Who Should Do"]
   },
