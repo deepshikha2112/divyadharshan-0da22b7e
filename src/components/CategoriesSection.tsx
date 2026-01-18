@@ -56,7 +56,6 @@ const categories = [
     icon: Users,
     count: "40+ संत",
     route: "/saints-gurus",
-    route: "/deity/saibaba",
     features: ["Life Summary", "Core Teachings", "Powerful Quote", "Modern Application"]
   },
   {
@@ -68,7 +67,6 @@ const categories = [
     icon: Brain,
     count: "50+ तकनीक",
     route: "/spiritual-techniques",
-    route: "/guidance",
     features: ["Step-by-step Method", "Time & Duration", "Expected Benefits", "Who Should Do"]
   },
   {
