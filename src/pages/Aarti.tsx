@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Music, Sun, Moon, Clock, ChevronRight, ArrowLeft, Play, Pause, Upload, ExternalLink } from "lucide-react";
+import { Music, Sun, Moon, Clock, ChevronRight, ArrowLeft, Play, Pause, Upload } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,8 @@ import Header from "@/components/Header";
 import BottomNavigation from "@/components/BottomNavigation";
 import TempleBackground from "@/components/TempleBackground";
 import { aartis, getAartisByTiming, type Aarti } from "@/data/aartiData";
-import { youtubeLinks, getYouTubeLinksByDeity, openYouTubeLink } from "@/data/youtubeLinks";
-import YouTubeRedirectButton from "@/components/YouTubeRedirectButton";
 import { toast } from "sonner";
+
 const AartiPage = () => {
   const [selectedAarti, setSelectedAarti] = useState<Aarti | null>(null);
   const [timingFilter, setTimingFilter] = useState<"all" | "morning" | "evening">("all");
@@ -177,93 +176,11 @@ const AartiList = ({ groupedAartis, timingFilter, onFilterChange, onSelect }: Aa
         ))}
       </div>
 
-      {/* YouTube Aarti Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="mt-8"
-      >
-        <Card className="border-red-200 bg-gradient-to-br from-red-50/50 to-orange-50/50 dark:from-red-950/20 dark:to-orange-950/20">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </div>
-              <div>
-                <span>Watch Aarti on YouTube</span>
-                <p className="text-xs font-normal text-muted-foreground mt-0.5">
-                  Opens in YouTube app or browser
-                </p>
-              </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {youtubeLinks.slice(0, 6).map((link) => (
-              <YouTubeRedirectButton
-                key={link.id}
-                url={link.youtubeUrl}
-                title={link.title}
-                titleHindi={link.titleHindi}
-                variant="aarti"
-              />
-            ))}
-            
-            {/* View More Button */}
-            <Button
-              variant="ghost"
-              className="w-full text-red-600 hover:text-red-700 hover:bg-red-50"
-              onClick={() => {
-                const section = document.getElementById("all-youtube-aartis");
-                section?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              View All {youtubeLinks.length} Aartis on YouTube
-              <ChevronRight className="w-4 h-4 ml-2" />
-            </Button>
-
-            {/* Copyright Notice */}
-            <div className="pt-3 border-t border-red-200/50">
-              <p className="text-xs text-muted-foreground text-center">
-                🎬 Watch on YouTube • Content © respective creators
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {/* All YouTube Aartis */}
-      <motion.div
-        id="all-youtube-aartis"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mt-8"
-      >
-        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <ExternalLink className="w-5 h-5 text-red-600" />
-          All Aartis on YouTube
-        </h2>
-        <div className="space-y-3">
-          {youtubeLinks.map((link) => (
-            <YouTubeRedirectButton
-              key={link.id}
-              url={link.youtubeUrl}
-              title={link.title}
-              titleHindi={link.titleHindi}
-              variant="aarti"
-            />
-          ))}
-        </div>
-      </motion.div>
-
       {/* Info Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
+        transition={{ delay: 0.4 }}
         className="mt-8"
       >
         <Card className="temple-card-saffron">
@@ -363,48 +280,6 @@ const AartiDetail = ({ aarti, onBack }: AartiDetailProps) => {
         </CardContent>
       </Card>
 
-      {/* YouTube Watch Option */}
-      {(() => {
-        const deityYouTubeLinks = getYouTubeLinksByDeity(aarti.deity.toLowerCase().replace(/\s+/g, ''));
-        const matchingLink = youtubeLinks.find(link => 
-          link.deityId === aarti.deity.toLowerCase().replace(/\s+/g, '') ||
-          aarti.nameHindi.includes(link.titleHindi.split(' ')[0])
-        );
-        
-        if (matchingLink) {
-          return (
-            <Card className="temple-card-warm mb-6 border-red-200">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground">Watch on YouTube</h3>
-                    <p className="text-xs text-muted-foreground">Opens in YouTube app or browser</p>
-                  </div>
-                </div>
-                <a
-                  href={matchingLink.youtubeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Watch Aarti on YouTube
-                </a>
-                <p className="text-xs text-muted-foreground text-center mt-2">
-                  Content © respective creators on YouTube
-                </p>
-              </CardContent>
-            </Card>
-          );
-        }
-        return null;
-      })()}
-
       {/* Audio Controls */}
       <Card className="temple-card-saffron mb-6">
         <CardContent className="p-4">
@@ -456,14 +331,8 @@ const AartiDetail = ({ aarti, onBack }: AartiDetailProps) => {
 
         <TabsContent value="hindi">
           <Card className="temple-card-warm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Music className="w-5 h-5 text-primary" />
-                आरती (Lyrics)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[350px]">
+            <CardContent className="p-6">
+              <ScrollArea className="h-[400px]">
                 <pre className="font-hindi text-lg leading-relaxed whitespace-pre-wrap text-foreground">
                   {aarti.lyricsHindi}
                 </pre>
@@ -474,14 +343,8 @@ const AartiDetail = ({ aarti, onBack }: AartiDetailProps) => {
 
         <TabsContent value="english">
           <Card className="temple-card-warm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Music className="w-5 h-5 text-primary" />
-                Lyrics (Transliteration)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[350px]">
+            <CardContent className="p-6">
+              <ScrollArea className="h-[400px]">
                 <pre className="text-base leading-relaxed whitespace-pre-wrap text-foreground">
                   {aarti.lyrics}
                 </pre>
