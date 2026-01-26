@@ -12,9 +12,10 @@ const Header = () => {
     { href: "/home#deities", label: "Deities" },
     { href: "/sacred-stories", label: "Stories" },
     { href: "/aarti", label: "Aarti" },
+    { href: "/prayer-journal", label: "Journal" },
+    { href: "/vrat-guide", label: "Vrat" },
     { href: "/prediction-info", label: "Astro Info" },
     { href: "/panchang", label: "Panchang" },
-    { href: "/meditation", label: "Meditation" },
   ];
 
   const isActive = (href: string) => {
