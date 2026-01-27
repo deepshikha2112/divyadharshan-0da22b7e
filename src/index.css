@@ -418,3 +418,26 @@
   25% { transform: rotate(10deg); }
   75% { transform: rotate(-10deg); }
 }
+
+/* Text size settings */
+.text-size-small {
+  font-size: 14px;
+}
+
+.text-size-small h1 { font-size: 1.75rem; }
+.text-size-small h2 { font-size: 1.5rem; }
+.text-size-small h3 { font-size: 1.25rem; }
+.text-size-small p, .text-size-small span { font-size: 0.875rem; }
+
+.text-size-medium {
+  font-size: 16px;
+}
+
+.text-size-large {
+  font-size: 18px;
+}
+
+.text-size-large h1 { font-size: 2.5rem; }
+.text-size-large h2 { font-size: 2rem; }
+.text-size-large h3 { font-size: 1.5rem; }
+.text-size-large p, .text-size-large span { font-size: 1.125rem; }
