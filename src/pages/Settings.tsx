@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Sun, Moon, Globe, Bell, Volume2, VolumeX, Type, Shield, Info, MessageCircle, Mail, ChevronRight } from "lucide-react";
+import { 
+  ArrowLeft, Sun, Moon, Globe, Bell, Volume2, VolumeX, Type, Shield, Info, 
+  MessageCircle, Mail, ChevronRight, Sunrise, Sun as SunIcon, Moon as MoonIcon, 
+  BellRing, BellOff 
+} from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
@@ -27,15 +31,20 @@ interface SettingsRowProps {
   sublabel?: string;
   children?: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-const SettingsRow = ({ icon, label, sublabel, children, onClick }: SettingsRowProps) => (
+const SettingsRow = ({ icon, label, sublabel, children, onClick, disabled }: SettingsRowProps) => (
   <div
-    className={`flex items-center justify-between p-4 transition-colors ${onClick ? "cursor-pointer hover:bg-muted/50" : ""}`}
-    onClick={onClick}
+    className={`flex items-center justify-between p-4 transition-colors ${
+      onClick && !disabled ? "cursor-pointer hover:bg-muted/50" : ""
+    } ${disabled ? "opacity-50" : ""}`}
+    onClick={disabled ? undefined : onClick}
   >
     <div className="flex items-center gap-3">
-      <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+      <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
+        disabled ? "bg-muted text-muted-foreground" : "bg-primary/10 text-primary"
+      }`}>
         {icon}
       </div>
       <div>
@@ -54,28 +63,23 @@ const SettingsRow = ({ icon, label, sublabel, children, onClick }: SettingsRowPr
 const Settings = () => {
   const navigate = useNavigate();
   const {
-    themeMode,
+    settings,
     setThemeMode,
-    language,
     setLanguage,
-    dailyReminders,
-    setDailyReminders,
-    spiritualNotifications,
-    setSpiritualNotifications,
-    backgroundMusic,
+    setNotificationSetting,
     setBackgroundMusic,
-    volume,
     setVolume,
-    textSize,
     setTextSize,
   } = useSettings();
+
+  const { themeMode, language, notifications, backgroundMusic, volume, textSize } = settings;
 
   const handleThemeToggle = () => {
     setThemeMode(themeMode === "light" ? "dark" : "light");
   };
 
   const handleLanguageToggle = () => {
-    setLanguage(language === "english" ? "hindi" : "english");
+    setLanguage(language === "en" ? "hi" : "en");
   };
 
   const textSizeOptions: { value: TextSize; label: string }[] = [
@@ -126,43 +130,88 @@ const Settings = () => {
           <SettingsRow
             icon={<Globe className="w-5 h-5" />}
             label="Language"
-            sublabel={language === "english" ? "English" : "हिंदी (Hindi)"}
+            sublabel={language === "en" ? "English" : "हिंदी (Hindi)"}
           >
             <div className="flex items-center gap-2">
-              <span className={`text-sm ${language === "english" ? "text-primary font-medium" : "text-muted-foreground"}`}>
+              <span className={`text-sm ${language === "en" ? "text-primary font-medium" : "text-muted-foreground"}`}>
                 EN
               </span>
               <Switch
-                checked={language === "hindi"}
+                checked={language === "hi"}
                 onCheckedChange={handleLanguageToggle}
               />
-              <span className={`text-sm font-hindi ${language === "hindi" ? "text-primary font-medium" : "text-muted-foreground"}`}>
+              <span className={`text-sm font-hindi ${language === "hi" ? "text-primary font-medium" : "text-muted-foreground"}`}>
                 हि
               </span>
             </div>
           </SettingsRow>
         </SettingsSection>
 
-        {/* Notifications */}
-        <SettingsSection title="Notifications">
+        {/* Notifications - Enhanced */}
+        <SettingsSection title="Daily Notifications">
+          {/* Master Toggle */}
           <SettingsRow
-            icon={<Bell className="w-5 h-5" />}
-            label="Daily Reminders"
-            sublabel="Get daily spiritual reminders"
+            icon={notifications.enabled ? <Bell className="w-5 h-5" /> : <BellOff className="w-5 h-5" />}
+            label="Enable Notifications"
+            sublabel="Receive 3 spiritual messages daily"
           >
             <Switch
-              checked={dailyReminders}
-              onCheckedChange={setDailyReminders}
+              checked={notifications.enabled}
+              onCheckedChange={(checked) => setNotificationSetting("enabled", checked)}
             />
           </SettingsRow>
+
+          {/* Time Slot Toggles */}
           <SettingsRow
-            icon={<Bell className="w-5 h-5" />}
-            label="Spiritual Notifications"
-            sublabel="Aarti, Mantra, Panchang updates"
+            icon={<Sunrise className="w-5 h-5" />}
+            label="Morning (6-8 AM)"
+            sublabel="Motivation & Sankalp"
+            disabled={!notifications.enabled}
           >
             <Switch
-              checked={spiritualNotifications}
-              onCheckedChange={setSpiritualNotifications}
+              checked={notifications.morningEnabled}
+              onCheckedChange={(checked) => setNotificationSetting("morningEnabled", checked)}
+              disabled={!notifications.enabled}
+            />
+          </SettingsRow>
+
+          <SettingsRow
+            icon={<SunIcon className="w-5 h-5" />}
+            label="Afternoon (1-3 PM)"
+            sublabel="Wisdom & Discipline"
+            disabled={!notifications.enabled}
+          >
+            <Switch
+              checked={notifications.afternoonEnabled}
+              onCheckedChange={(checked) => setNotificationSetting("afternoonEnabled", checked)}
+              disabled={!notifications.enabled}
+            />
+          </SettingsRow>
+
+          <SettingsRow
+            icon={<MoonIcon className="w-5 h-5" />}
+            label="Night (8-10 PM)"
+            sublabel="Reflection & Gratitude"
+            disabled={!notifications.enabled}
+          >
+            <Switch
+              checked={notifications.nightEnabled}
+              onCheckedChange={(checked) => setNotificationSetting("nightEnabled", checked)}
+              disabled={!notifications.enabled}
+            />
+          </SettingsRow>
+
+          {/* Sound Toggle */}
+          <SettingsRow
+            icon={notifications.soundEnabled ? <BellRing className="w-5 h-5" /> : <BellOff className="w-5 h-5" />}
+            label="Notification Sound"
+            sublabel={notifications.soundEnabled ? "Sound enabled" : "Silent mode"}
+            disabled={!notifications.enabled}
+          >
+            <Switch
+              checked={notifications.soundEnabled}
+              onCheckedChange={(checked) => setNotificationSetting("soundEnabled", checked)}
+              disabled={!notifications.enabled}
             />
           </SettingsRow>
         </SettingsSection>

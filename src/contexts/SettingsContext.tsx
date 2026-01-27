@@ -1,8 +1,16 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 export type ThemeMode = "light" | "dark";
-export type Language = "english" | "hindi";
+export type Language = "en" | "hi";
 export type TextSize = "small" | "medium" | "large";
+
+interface NotificationSettings {
+  enabled: boolean;
+  morningEnabled: boolean;
+  afternoonEnabled: boolean;
+  nightEnabled: boolean;
+  soundEnabled: boolean;
+}
 
 interface SettingsState {
   // Theme
@@ -11,9 +19,8 @@ interface SettingsState {
   // Language
   language: Language;
   
-  // Notifications
-  dailyReminders: boolean;
-  spiritualNotifications: boolean;
+  // Notifications (granular)
+  notifications: NotificationSettings;
   
   // Audio
   backgroundMusic: boolean;
@@ -23,11 +30,11 @@ interface SettingsState {
   textSize: TextSize;
 }
 
-interface SettingsContextType extends SettingsState {
+interface SettingsContextType {
+  settings: SettingsState;
   setThemeMode: (mode: ThemeMode) => void;
   setLanguage: (lang: Language) => void;
-  setDailyReminders: (enabled: boolean) => void;
-  setSpiritualNotifications: (enabled: boolean) => void;
+  setNotificationSetting: <K extends keyof NotificationSettings>(key: K, value: NotificationSettings[K]) => void;
   setBackgroundMusic: (enabled: boolean) => void;
   setVolume: (volume: number) => void;
   setTextSize: (size: TextSize) => void;
@@ -35,9 +42,14 @@ interface SettingsContextType extends SettingsState {
 
 const defaultSettings: SettingsState = {
   themeMode: "light",
-  language: "hindi",
-  dailyReminders: true,
-  spiritualNotifications: true,
+  language: "hi",
+  notifications: {
+    enabled: true,
+    morningEnabled: true,
+    afternoonEnabled: true,
+    nightEnabled: true,
+    soundEnabled: true,
+  },
   backgroundMusic: false,
   volume: 70,
   textSize: "medium",
@@ -52,7 +64,23 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        return { ...defaultSettings, ...JSON.parse(stored) };
+        const parsed = JSON.parse(stored);
+        // Migration: handle old format
+        if (parsed.dailyReminders !== undefined || parsed.spiritualNotifications !== undefined) {
+          return {
+            ...defaultSettings,
+            ...parsed,
+            language: parsed.language === "english" ? "en" : parsed.language === "hindi" ? "hi" : parsed.language || "hi",
+            notifications: {
+              enabled: parsed.dailyReminders ?? true,
+              morningEnabled: true,
+              afternoonEnabled: true,
+              nightEnabled: true,
+              soundEnabled: parsed.spiritualNotifications ?? true,
+            }
+          };
+        }
+        return { ...defaultSettings, ...parsed };
       }
     } catch (e) {
       console.error("Failed to load settings:", e);
@@ -94,12 +122,17 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     setSettings((prev) => ({ ...prev, language: lang }));
   };
 
-  const setDailyReminders = (enabled: boolean) => {
-    setSettings((prev) => ({ ...prev, dailyReminders: enabled }));
-  };
-
-  const setSpiritualNotifications = (enabled: boolean) => {
-    setSettings((prev) => ({ ...prev, spiritualNotifications: enabled }));
+  const setNotificationSetting = <K extends keyof NotificationSettings>(
+    key: K, 
+    value: NotificationSettings[K]
+  ) => {
+    setSettings((prev) => ({
+      ...prev,
+      notifications: {
+        ...prev.notifications,
+        [key]: value,
+      }
+    }));
   };
 
   const setBackgroundMusic = (enabled: boolean) => {
@@ -117,11 +150,10 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   return (
     <SettingsContext.Provider
       value={{
-        ...settings,
+        settings,
         setThemeMode,
         setLanguage,
-        setDailyReminders,
-        setSpiritualNotifications,
+        setNotificationSetting,
         setBackgroundMusic,
         setVolume,
         setTextSize,

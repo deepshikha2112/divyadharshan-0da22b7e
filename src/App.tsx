@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SettingsProvider } from "@/contexts/SettingsContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import NotificationManager from "@/components/NotificationManager";
 import Cover from "./pages/Cover";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
@@ -38,6 +39,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <NotificationManager />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Cover />} />
