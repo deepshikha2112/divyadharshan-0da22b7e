@@ -191,9 +191,9 @@ const VratDetail = ({ vrat, onBack }: VratDetailProps) => {
 
         <TabsContent value="food">
           <div className="space-y-4">
-            <Card className="temple-card-warm border-green-200">
+            <Card className="temple-card-warm border-green-600/30 dark:border-green-500/30">
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center gap-2 text-green-700">
+                <CardTitle className="text-lg flex items-center gap-2 text-green-700 dark:text-green-400">
                   <CheckCircle className="w-5 h-5" />
                   Allowed Foods
                 </CardTitle>
@@ -201,7 +201,7 @@ const VratDetail = ({ vrat, onBack }: VratDetailProps) => {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {vrat.foods.allowed.map((food, index) => (
-                    <Badge key={index} variant="outline" className="bg-green-50 border-green-200 text-green-700">
+                    <Badge key={index} variant="outline" className="bg-green-50 dark:bg-green-950/40 border-green-200 dark:border-green-700 text-green-700 dark:text-green-300">
                       {food}
                     </Badge>
                   ))}
@@ -209,9 +209,9 @@ const VratDetail = ({ vrat, onBack }: VratDetailProps) => {
               </CardContent>
             </Card>
 
-            <Card className="temple-card-warm border-red-200">
+            <Card className="temple-card-warm border-red-600/30 dark:border-red-500/30">
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center gap-2 text-red-700">
+                <CardTitle className="text-lg flex items-center gap-2 text-red-700 dark:text-red-400">
                   <XCircle className="w-5 h-5" />
                   Foods to Avoid
                 </CardTitle>
@@ -219,7 +219,7 @@ const VratDetail = ({ vrat, onBack }: VratDetailProps) => {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {vrat.foods.notAllowed.map((food, index) => (
-                    <Badge key={index} variant="outline" className="bg-red-50 border-red-200 text-red-700">
+                    <Badge key={index} variant="outline" className="bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-700 text-red-700 dark:text-red-300">
                       {food}
                     </Badge>
                   ))}

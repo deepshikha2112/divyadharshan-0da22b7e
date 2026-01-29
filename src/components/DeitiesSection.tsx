@@ -7,9 +7,17 @@ const DeitiesSection = () => {
     <section id="deities" className="py-20 relative">
       {/* Light background */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 dark:hidden"
         style={{
           background: "linear-gradient(180deg, hsl(35 45% 95%) 0%, hsl(30 40% 97%) 100%)",
+        }}
+      />
+      
+      {/* Dark background */}
+      <div 
+        className="absolute inset-0 hidden dark:block"
+        style={{
+          background: "linear-gradient(180deg, hsl(20 15% 10%) 0%, hsl(20 18% 12%) 100%)",
         }}
       />
       

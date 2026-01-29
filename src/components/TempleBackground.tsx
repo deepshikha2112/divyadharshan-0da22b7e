@@ -3,28 +3,53 @@ import { motion } from "framer-motion";
 const TempleBackground = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Base gradient */}
+      {/* Base gradient - Light mode */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 dark:hidden"
         style={{
           background: "linear-gradient(180deg, hsl(35 35% 96%) 0%, hsl(30 30% 94%) 50%, hsl(35 40% 95%) 100%)"
         }}
       />
       
-      {/* Subtle pattern overlay */}
+      {/* Base gradient - Dark mode */}
       <div 
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 hidden dark:block"
+        style={{
+          background: "linear-gradient(180deg, hsl(20 20% 6%) 0%, hsl(20 18% 10%) 50%, hsl(20 15% 8%) 100%)"
+        }}
+      />
+      
+      {/* Subtle pattern overlay - Light */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] dark:hidden"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0z' fill='%23c4a054' fill-opacity='0.4'/%3E%3C/svg%3E")`,
           backgroundSize: "60px 60px"
         }}
       />
-
-      {/* Warm glow from top */}
+      
+      {/* Subtle pattern overlay - Dark */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-30"
+        className="absolute inset-0 opacity-[0.02] hidden dark:block"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0z' fill='%23d4a054' fill-opacity='0.3'/%3E%3C/svg%3E")`,
+          backgroundSize: "60px 60px"
+        }}
+      />
+
+      {/* Warm glow from top - Light */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-30 dark:hidden"
         style={{
           background: "radial-gradient(ellipse at center, hsl(42 80% 70% / 0.3) 0%, transparent 70%)"
+        }}
+      />
+      
+      {/* Warm glow from top - Dark */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-20 hidden dark:block"
+        style={{
+          background: "radial-gradient(ellipse at center, hsl(25 70% 40% / 0.3) 0%, transparent 70%)"
         }}
       />
 
@@ -67,7 +92,7 @@ const TempleBackground = () => {
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-temple-gold/20"
+          className="absolute w-1 h-1 rounded-full bg-temple-gold/20 dark:bg-temple-gold/10"
           style={{
             left: `${15 + i * 15}%`,
             bottom: "10%"
