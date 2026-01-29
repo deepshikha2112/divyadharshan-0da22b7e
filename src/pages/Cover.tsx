@@ -10,24 +10,44 @@ const Cover = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen relative overflow-hidden flex items-center justify-center"
-      style={{
-        background: "linear-gradient(180deg, hsl(40 60% 97%) 0%, hsl(35 50% 94%) 50%, hsl(30 40% 96%) 100%)",
-      }}
-    >
-      {/* Subtle decorative frame */}
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center bg-background">
+      {/* Light mode background */}
       <div 
-        className="absolute inset-4 md:inset-8 pointer-events-none rounded-2xl"
+        className="absolute inset-0 dark:hidden"
+        style={{
+          background: "linear-gradient(180deg, hsl(40 60% 97%) 0%, hsl(35 50% 94%) 50%, hsl(30 40% 96%) 100%)",
+        }}
+      />
+      
+      {/* Dark mode background */}
+      <div 
+        className="absolute inset-0 hidden dark:block"
+        style={{
+          background: "linear-gradient(180deg, hsl(20 20% 6%) 0%, hsl(20 18% 10%) 50%, hsl(20 15% 8%) 100%)",
+        }}
+      />
+      
+      {/* Subtle decorative frame - Light */}
+      <div 
+        className="absolute inset-4 md:inset-8 pointer-events-none rounded-2xl dark:hidden"
         style={{
           border: "1px solid hsl(35 40% 85% / 0.6)",
           boxShadow: "inset 0 0 60px hsl(40 50% 90% / 0.5)",
         }}
       />
+      
+      {/* Subtle decorative frame - Dark */}
+      <div 
+        className="absolute inset-4 md:inset-8 pointer-events-none rounded-2xl hidden dark:block"
+        style={{
+          border: "1px solid hsl(20 15% 25% / 0.6)",
+          boxShadow: "inset 0 0 60px hsl(20 20% 15% / 0.3)",
+        }}
+      />
 
       {/* Soft glowing orbs - decorative */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full opacity-30"
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full opacity-30 dark:opacity-20"
         style={{
           background: "radial-gradient(circle, hsl(42 70% 85%) 0%, transparent 70%)",
           filter: "blur(40px)",
@@ -44,7 +64,7 @@ const Cover = () => {
       />
       
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-25"
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-25 dark:opacity-15"
         style={{
           background: "radial-gradient(circle, hsl(25 60% 88%) 0%, transparent 70%)",
           filter: "blur(50px)",
@@ -62,7 +82,7 @@ const Cover = () => {
 
       {/* Lotus/Diya glow at center-bottom */}
       <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-40"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-40 dark:opacity-25"
         style={{
           background: "radial-gradient(ellipse at bottom, hsl(42 80% 80%) 0%, transparent 60%)",
           filter: "blur(30px)",
@@ -86,20 +106,16 @@ const Cover = () => {
           <img 
             src={logo} 
             alt="Divya Dharshan" 
-            className="w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto object-cover"
+            className="w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto object-cover shadow-warm"
             style={{
               boxShadow: "0 0 60px hsl(42 60% 75% / 0.5)",
             }}
           />
         </motion.div>
 
-        {/* App Name - elegant, light */}
+        {/* App Name - elegant */}
         <motion.h1
-          className="font-heading text-3xl md:text-4xl font-light mb-6 tracking-wide"
-          style={{
-            color: "hsl(25 40% 35%)",
-            opacity: 0.85,
-          }}
+          className="font-heading text-3xl md:text-4xl font-light mb-6 tracking-wide text-foreground"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.85 }}
           transition={{ duration: 1.5, delay: 0.5 }}
@@ -109,11 +125,7 @@ const Cover = () => {
 
         {/* Single peaceful text line */}
         <motion.p
-          className="font-body text-base md:text-lg font-light tracking-widest mb-16"
-          style={{
-            color: "hsl(30 30% 50%)",
-            opacity: 0.7,
-          }}
+          className="font-body text-base md:text-lg font-light tracking-widest mb-16 text-muted-foreground"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.7 }}
           transition={{ duration: 1.5, delay: 0.8 }}
@@ -121,22 +133,18 @@ const Cover = () => {
           A Moment of Peace
         </motion.p>
 
-        {/* Enter Button - light, minimal */}
+        {/* Enter Button */}
         <motion.button
           onClick={handleEnter}
-          className="px-12 py-4 rounded-full font-body text-sm tracking-widest uppercase transition-all duration-500"
+          className="px-12 py-4 rounded-full font-body text-sm tracking-widest uppercase transition-all duration-500 text-foreground bg-transparent border border-border hover:border-primary/50"
           style={{
-            color: "hsl(25 50% 40%)",
-            background: "transparent",
-            border: "1px solid hsl(35 40% 75%)",
-            boxShadow: "0 0 30px hsl(42 50% 85% / 0.4)",
+            boxShadow: "0 0 30px hsl(42 50% 85% / 0.3)",
           }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
           whileHover={{
-            boxShadow: "0 0 50px hsl(42 60% 80% / 0.6)",
-            borderColor: "hsl(35 50% 65%)",
+            boxShadow: "0 0 50px hsl(42 60% 80% / 0.5)",
             scale: 1.02,
           }}
           whileTap={{ scale: 0.98 }}

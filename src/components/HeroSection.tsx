@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import { Mic, Home, BookOpen, Music, Calendar, Star, Sparkles, Sun } from "lucide-react";
 
 const quickAccessItems = [
-  { icon: Home, label: "Deities", path: "/home", color: "bg-orange-100 text-orange-600" },
-  { icon: BookOpen, label: "Stories", path: "/sacred-stories", color: "bg-amber-100 text-amber-600" },
-  { icon: Music, label: "Aarti", path: "/aarti", color: "bg-red-100 text-red-600" },
-  { icon: Calendar, label: "Journal", path: "/prayer-journal", color: "bg-green-100 text-green-600" },
-  { icon: Star, label: "Vrat", path: "/vrat-guide", color: "bg-purple-100 text-purple-600" },
-  { icon: Sparkles, label: "Astro Info", path: "/prediction-info", color: "bg-indigo-100 text-indigo-600" },
-  { icon: Sun, label: "Panchang", path: "/panchang", color: "bg-yellow-100 text-yellow-600" },
+  { icon: Home, label: "Deities", path: "/home", color: "bg-orange-100 dark:bg-orange-950/50 text-orange-600 dark:text-orange-400" },
+  { icon: BookOpen, label: "Stories", path: "/sacred-stories", color: "bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400" },
+  { icon: Music, label: "Aarti", path: "/aarti", color: "bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400" },
+  { icon: Calendar, label: "Journal", path: "/prayer-journal", color: "bg-green-100 dark:bg-green-950/50 text-green-600 dark:text-green-400" },
+  { icon: Star, label: "Vrat", path: "/vrat-guide", color: "bg-purple-100 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400" },
+  { icon: Sparkles, label: "Astro Info", path: "/prediction-info", color: "bg-indigo-100 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400" },
+  { icon: Sun, label: "Panchang", path: "/panchang", color: "bg-yellow-100 dark:bg-yellow-950/50 text-yellow-600 dark:text-yellow-400" },
 ];
 
 const HeroSection = () => {
@@ -19,15 +19,23 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Light Temple Background Gradient */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 dark:hidden"
         style={{
           background: "linear-gradient(180deg, hsl(40 60% 97%) 0%, hsl(35 50% 94%) 50%, hsl(30 40% 96%) 100%)",
         }}
       />
+      
+      {/* Dark Mode Background Gradient */}
+      <div 
+        className="absolute inset-0 hidden dark:block"
+        style={{
+          background: "linear-gradient(180deg, hsl(20 20% 6%) 0%, hsl(20 18% 10%) 50%, hsl(20 15% 8%) 100%)",
+        }}
+      />
 
-      {/* Soft glowing orbs - decorative */}
+      {/* Soft glowing orbs - decorative (light mode) */}
       <motion.div
-        className="absolute top-20 left-10 w-40 h-40 rounded-full opacity-40"
+        className="absolute top-20 left-10 w-40 h-40 rounded-full opacity-40 dark:opacity-20"
         style={{
           background: "radial-gradient(circle, hsl(42 70% 85%) 0%, transparent 70%)",
           filter: "blur(40px)",
@@ -39,7 +47,7 @@ const HeroSection = () => {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-40 right-10 w-32 h-32 rounded-full opacity-30"
+        className="absolute bottom-40 right-10 w-32 h-32 rounded-full opacity-30 dark:opacity-15"
         style={{
           background: "radial-gradient(circle, hsl(25 60% 80%) 0%, transparent 70%)",
           filter: "blur(30px)",
@@ -61,9 +69,8 @@ const HeroSection = () => {
           className="mb-8"
         >
           <motion.span 
-            className="text-7xl md:text-8xl block"
+            className="text-7xl md:text-8xl block text-primary/80 dark:text-primary/70"
             style={{
-              color: "hsl(35 50% 65%)",
               textShadow: "0 0 40px hsl(42 60% 75% / 0.4)",
             }}
             animate={{ 
@@ -83,10 +90,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mb-4"
         >
-          <h1 
-            className="font-heading text-4xl md:text-5xl lg:text-6xl font-semibold tracking-wide"
-            style={{ color: "hsl(25 40% 30%)" }}
-          >
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-semibold tracking-wide text-foreground">
             Divya Darshan
           </h1>
         </motion.div>
@@ -96,8 +100,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.7 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-lg md:text-xl font-light mb-12 max-w-md mx-auto"
-          style={{ color: "hsl(30 30% 45%)" }}
+          className="text-lg md:text-xl font-light mb-12 max-w-md mx-auto text-muted-foreground"
         >
           A Divine Space for Peace, Faith & Wisdom
         </motion.p>
@@ -111,20 +114,12 @@ const HeroSection = () => {
         >
           <div
             onClick={() => navigate("/guidance")}
-            className="flex items-center gap-3 px-6 py-4 rounded-full cursor-pointer transition-all duration-300 group"
-            style={{
-              background: "hsl(35 40% 98%)",
-              border: "1px solid hsl(35 40% 85%)",
-              boxShadow: "0 4px 20px hsl(25 40% 50% / 0.1)",
-            }}
+            className="flex items-center gap-3 px-6 py-4 rounded-full cursor-pointer transition-all duration-300 group bg-card border border-border hover:border-primary/50 shadow-warm"
           >
             <span className="text-muted-foreground flex-1 text-left group-hover:text-foreground transition-colors">
               Ask a Question...
             </span>
-            <div 
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-              style={{ background: "hsl(25 70% 55% / 0.15)" }}
-            >
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-primary/15">
               <Mic className="w-5 h-5 text-primary" />
             </div>
           </div>
@@ -151,10 +146,7 @@ const HeroSection = () => {
                   transition={{ delay: 1 + index * 0.05, duration: 0.4 }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${item.color}`}
-                  style={{
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                  }}
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${item.color} shadow-sm`}
                 >
                   <Icon className="w-5 h-5" />
                 </motion.div>
@@ -186,13 +178,7 @@ const HeroSection = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 rounded-full font-medium flex items-center gap-2 justify-center min-w-[180px]"
-              style={{
-                color: "hsl(25 50% 40%)",
-                background: "transparent",
-                border: "1px solid hsl(35 40% 80%)",
-                boxShadow: "0 0 20px hsl(42 50% 85% / 0.4)",
-              }}
+              className="px-8 py-4 rounded-full font-medium flex items-center gap-2 justify-center min-w-[180px] text-foreground bg-transparent border border-border hover:border-primary/50"
             >
               <span>📿</span> Spiritual Categories
             </motion.button>
