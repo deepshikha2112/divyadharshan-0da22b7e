@@ -56,7 +56,7 @@ const NotificationPopup = ({
               damping: 25,
               stiffness: 300
             }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-[calc(100%-2rem)] max-w-sm mx-4"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-[101] max-w-sm mx-auto"
           >
             <div className="bg-card border border-border/60 rounded-2xl shadow-warm overflow-hidden">
               {/* Header accent */}
