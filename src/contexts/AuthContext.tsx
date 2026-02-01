@@ -27,9 +27,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 
     // Then check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        // Clear stale session on error (e.g., invalid refresh token)
+        console.error("Session error:", error.message);
+        supabase.auth.signOut();
+        setSession(null);
+        setUser(null);
+      } else {
+        setSession(session);
+        setUser(session?.user ?? null);
+      }
+      setLoading(false);
+    }).catch((error) => {
+      console.error("Failed to get session:", error);
+      setSession(null);
+      setUser(null);
       setLoading(false);
     });
 
