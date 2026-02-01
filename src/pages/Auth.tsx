@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,8 +18,11 @@ const nameSchema = z.string().min(1, "Name is required").max(100);
 
 const Auth = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { user, loading } = useAuth();
+
+  const didAutoStartOAuth = useRef(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
@@ -34,9 +37,24 @@ const Auth = () => {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate("/");
+      navigate("/home", { replace: true });
     }
   }, [user, loading, navigate]);
+
+  useEffect(() => {
+    // If running inside the Lovable editor preview iframe, Google OAuth can be blocked by iframe security.
+    // To make it reliable, we support opening a top-level tab and auto-starting the flow there.
+    if (loading || user || didAutoStartOAuth.current) return;
+
+    const params = new URLSearchParams(location.search);
+    const shouldAutoStart = params.get("autostart") === "google";
+    if (!shouldAutoStart) return;
+
+    didAutoStartOAuth.current = true;
+    // Fire-and-forget; any errors will be shown via toast in handleGoogleSignIn.
+    void handleGoogleSignIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search, loading, user]);
 
   const validateField = (schema: z.ZodSchema, value: string, field: string): boolean => {
     const result = schema.safeParse(value);
@@ -74,7 +92,7 @@ const Auth = () => {
         title: "🙏 स्वागत है",
         description: "You have successfully logged in.",
       });
-      navigate("/");
+      navigate("/home", { replace: true });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Login failed";
       toast({
@@ -116,7 +134,7 @@ const Auth = () => {
         title: "🎉 Account Created",
         description: "Welcome to the devotional app! You are now logged in.",
       });
-      navigate("/");
+      navigate("/home", { replace: true });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Signup failed";
       toast({
@@ -130,6 +148,25 @@ const Auth = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    const isInIframe = (() => {
+      try {
+        return window.self !== window.top;
+      } catch {
+        return true;
+      }
+    })();
+
+    if (isInIframe) {
+      // Open a top-level tab (not iframed) where OAuth is allowed.
+      const url = `${window.location.origin}/auth?autostart=google`;
+      window.open(url, "_blank", "noopener,noreferrer");
+      toast({
+        title: "Continue in new tab",
+        description: "Google sign-in opens in a new tab for security reasons. Please complete sign-in there.",
+      });
+      return;
+    }
+
     setIsGoogleLoading(true);
     try {
       const { error } = await lovable.auth.signInWithOAuth("google", {
