@@ -148,6 +148,25 @@ const Auth = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    const isInIframe = (() => {
+      try {
+        return window.self !== window.top;
+      } catch {
+        return true;
+      }
+    })();
+
+    if (isInIframe) {
+      // Open a top-level tab (not iframed) where OAuth is allowed.
+      const url = `${window.location.origin}/auth?autostart=google`;
+      window.open(url, "_blank", "noopener,noreferrer");
+      toast({
+        title: "Continue in new tab",
+        description: "Google sign-in opens in a new tab for security reasons. Please complete sign-in there.",
+      });
+      return;
+    }
+
     setIsGoogleLoading(true);
     try {
       const { error } = await lovable.auth.signInWithOAuth("google", {
