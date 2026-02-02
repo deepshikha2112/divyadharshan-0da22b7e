@@ -5,13 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SettingsProvider } from "@/contexts/SettingsContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
+
 import NotificationManager from "@/components/NotificationManager";
 import Cover from "./pages/Cover";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
 import DeityDetail from "./pages/DeityDetail";
 import Guidance from "./pages/Guidance";
 import Compatibility from "./pages/Compatibility";
@@ -48,34 +45,31 @@ const App = () => (
           <BrowserRouter>
             <NotificationManager />
             <Routes>
-              <Route path="/" element={<Navigate to="/auth" replace />} />
+              <Route path="/" element={<Navigate to="/cover" replace />} />
               <Route path="/cover" element={<Cover />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/home" element={<ProtectedRoute><Index /></ProtectedRoute>} />
-              <Route path="/deity/:id" element={<ProtectedRoute><DeityDetail /></ProtectedRoute>} />
-              <Route path="/guidance" element={<ProtectedRoute><Guidance /></ProtectedRoute>} />
-              <Route path="/compatibility" element={<ProtectedRoute><Compatibility /></ProtectedRoute>} />
-              <Route path="/meditation" element={<ProtectedRoute><Meditation /></ProtectedRoute>} />
-              <Route path="/ramcharitmanas" element={<ProtectedRoute><Ramcharitmanas /></ProtectedRoute>} />
-              <Route path="/bhagavad-gita" element={<ProtectedRoute><BhagavadGita /></ProtectedRoute>} />
-              <Route path="/vishnu-puran" element={<ProtectedRoute><VishnuPuran /></ProtectedRoute>} />
-              <Route path="/panchang" element={<ProtectedRoute><Panchang /></ProtectedRoute>} />
-              <Route path="/prayer-journal" element={<ProtectedRoute><PrayerJournal /></ProtectedRoute>} />
-              <Route path="/vrat-guide" element={<ProtectedRoute><VratGuide /></ProtectedRoute>} />
-              <Route path="/aarti" element={<ProtectedRoute><AartiPage /></ProtectedRoute>} />
-              <Route path="/sacred-stories" element={<ProtectedRoute><SacredStories /></ProtectedRoute>} />
-              <Route path="/saints-gurus" element={<ProtectedRoute><SaintsGurus /></ProtectedRoute>} />
-              <Route path="/spiritual-techniques" element={<ProtectedRoute><SpiritualTechniques /></ProtectedRoute>} />
-              <Route path="/sadhna" element={<ProtectedRoute><Sadhna /></ProtectedRoute>} />
-              <Route path="/mantras" element={<ProtectedRoute><Mantras /></ProtectedRoute>} />
-              <Route path="/prediction-info" element={<ProtectedRoute><PredictionInfo /></ProtectedRoute>} />
-              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-              <Route path="/privacy-policy" element={<ProtectedRoute><PrivacyPolicy /></ProtectedRoute>} />
-              <Route path="/terms-conditions" element={<ProtectedRoute><TermsConditions /></ProtectedRoute>} />
-              <Route path="/about" element={<ProtectedRoute><AboutApp /></ProtectedRoute>} />
-              <Route path="/contact" element={<ProtectedRoute><ContactSupport /></ProtectedRoute>} />
+              <Route path="/home" element={<Index />} />
+              <Route path="/deity/:id" element={<DeityDetail />} />
+              <Route path="/guidance" element={<Guidance />} />
+              <Route path="/compatibility" element={<Compatibility />} />
+              <Route path="/meditation" element={<Meditation />} />
+              <Route path="/ramcharitmanas" element={<Ramcharitmanas />} />
+              <Route path="/bhagavad-gita" element={<BhagavadGita />} />
+              <Route path="/vishnu-puran" element={<VishnuPuran />} />
+              <Route path="/panchang" element={<Panchang />} />
+              <Route path="/prayer-journal" element={<PrayerJournal />} />
+              <Route path="/vrat-guide" element={<VratGuide />} />
+              <Route path="/aarti" element={<AartiPage />} />
+              <Route path="/sacred-stories" element={<SacredStories />} />
+              <Route path="/saints-gurus" element={<SaintsGurus />} />
+              <Route path="/spiritual-techniques" element={<SpiritualTechniques />} />
+              <Route path="/sadhna" element={<Sadhna />} />
+              <Route path="/mantras" element={<Mantras />} />
+              <Route path="/prediction-info" element={<PredictionInfo />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-conditions" element={<TermsConditions />} />
+              <Route path="/about" element={<AboutApp />} />
+              <Route path="/contact" element={<ContactSupport />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
