@@ -8,6 +8,7 @@ import { SettingsProvider } from "@/contexts/SettingsContext";
 
 import NotificationManager from "@/components/NotificationManager";
 import Cover from "./pages/Cover";
+import Auth from "./pages/Auth";
 import Index from "./pages/Index";
 import DeityDetail from "./pages/DeityDetail";
 import Guidance from "./pages/Guidance";
@@ -45,8 +46,9 @@ const App = () => (
           <BrowserRouter>
             <NotificationManager />
             <Routes>
-              <Route path="/" element={<Navigate to="/cover" replace />} />
+<Route path="/" element={<Navigate to="/cover" replace />} />
               <Route path="/cover" element={<Cover />} />
+              <Route path="/auth" element={<Auth />} />
               <Route path="/home" element={<Index />} />
               <Route path="/deity/:id" element={<DeityDetail />} />
               <Route path="/guidance" element={<Guidance />} />
