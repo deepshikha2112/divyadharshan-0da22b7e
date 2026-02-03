@@ -227,20 +227,23 @@ const Guidance = () => {
       <Header />
       
       <section className="pt-24 pb-12 bg-gradient-to-b from-primary/10 to-background">
-        <div className="container mx-auto px-4 text-center">
-          <Sparkles className="w-12 h-12 mx-auto text-primary mb-4" />
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-            {mode === "select" 
-              ? "ज्योतिष सेवाएं | Astrology Services"
-              : (isHindi ? "ज्योतिष मार्गदर्शन" : "Astrology Guidance")
-            }
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {mode === "select" 
-              ? "वैदिक ज्योतिष की शक्ति से अपने जीवन को समझें।"
-              : (isHindi ? "वैदिक ज्योतिष के आधार पर जीवन की समस्याओं का समाधान पाएं।" : "Get solutions to your life problems based on Vedic Astrology.")
-            }
-          </p>
+        <div className="container mx-auto px-4">
+          <BackButton label="Back to Home" fallbackPath="/home" />
+          <div className="text-center">
+            <Sparkles className="w-12 h-12 mx-auto text-primary mb-4" />
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
+              {mode === "select" 
+                ? "ज्योतिष सेवाएं | Astrology Services"
+                : (isHindi ? "ज्योतिष मार्गदर्शन" : "Astrology Guidance")
+              }
+            </h1>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              {mode === "select" 
+                ? "वैदिक ज्योतिष की शक्ति से अपने जीवन को समझें।"
+                : (isHindi ? "वैदिक ज्योतिष के आधार पर जीवन की समस्याओं का समाधान पाएं।" : "Get solutions to your life problems based on Vedic Astrology.")
+              }
+            </p>
+          </div>
         </div>
       </section>
 
